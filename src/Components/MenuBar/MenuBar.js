@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, makeStyles, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, makeStyles, Grid, Drawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItems from './MenuItems/MenuItems';
-import SideDrawer from './Drawer/SideDrawer';
+import SideDrawerItems from './Drawer/SideDrawerItems';
 
 // Use Styles from Material UI API
 const useStyles = makeStyles((theme) => ({
     // Do not display Hamburger Menu for non-mobile screen resolutions
     icon: {
         display: 'none',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             display: 'flex'
         }
     },
@@ -32,7 +32,9 @@ const MenuBar = (props) => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <SideDrawer display={displayDrawer} onClose={() => setDisplayDrawer(false)} />
+                <Drawer open={displayDrawer} onClick={() => setDisplayDrawer(false)}>
+                    <SideDrawerItems />
+                </Drawer>
                 <IconButton
                     className={classes.icon}
                     edge="start"
