@@ -13,7 +13,7 @@ function App() {
         <Grid item xs={12}>
           <MenuBar />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{padding: '20px'}}>
           {/* Routing */}
           <Switch>
             <Route path="/" exact component={ShoppingItems} />

@@ -1,0 +1,19 @@
+.ShoppingItemsCard {
+    width: 90%;
+    margin: auto;
+    padding: 10px
+}
+
+.Product {
+    text-align: center;
+    padding: 10px;
+}
+
+.ProductSpan {
+    cursor: pointer;
+}
+
+.Img {
+    width: 150px;
+    height: 150px
+}

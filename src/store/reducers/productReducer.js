@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-    productList: null,
+    productList: [],
     error: null
 };
 
@@ -10,7 +10,19 @@ const reducer = (state = initialState, action) => {
         case actionTypes.INITIALIZE_PRODUCTS: {
             return {
                 ...state,
-                productList: action.productList
+                productList: state.productList.concat(action.productList)
+            }
+        }
+        case actionTypes.SET_ERROR: {
+            return {
+                ...state,
+                error: action.error
+            }
+        }
+        case actionTypes.CLEAR_ERROR: {
+            return {
+                ...state,
+                error: null
             }
         }
         default:
