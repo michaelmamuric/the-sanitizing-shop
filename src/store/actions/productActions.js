@@ -15,6 +15,18 @@ export const clearError = () => {
     }
 }
 
+export const showDialog = () => {
+    return {
+        type: actionTypes.SHOW_DIALOG
+    }   
+}
+
+export const hideDialog = () => {
+    return {
+        type: actionTypes.HIDE_DIALOG
+    }   
+}
+
 export const initializeProducts = (productList) => {
     return {
         type: actionTypes.INITIALIZE_PRODUCTS,

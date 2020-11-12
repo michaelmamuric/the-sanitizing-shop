@@ -1,4 +1,10 @@
 export {
     fetchProducts,
-    initializeProducts
+    initializeProducts,
+    showDialog,
+    hideDialog
 } from './productActions'
+
+export {
+    addToCart
+} from './shoppingActions'

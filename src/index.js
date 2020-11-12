@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import productReducer from './store/reducers/productReducer';
+import shoppingReducer from './store/reducers/shoppingReducer';
 import thunk from 'redux-thunk';
 
 // To enable Redux Developer Tools
@@ -15,7 +16,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // Combine the reducers to be used
 // Will be expanded later
 const mainReducer = combineReducers({
-  productReducer
+  productReducer,
+  shoppingReducer
 });
 
 // Create Redux Store

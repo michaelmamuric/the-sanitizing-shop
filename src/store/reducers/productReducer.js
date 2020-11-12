@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     productList: [],
-    error: null
+    error: null,
+    isDialogDisplayed: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null
+            }
+        }
+        case actionTypes.SHOW_DIALOG: {
+            return {
+                ...state,
+                isDialogDisplayed: true
+            }
+        }
+        case actionTypes.HIDE_DIALOG: {
+            return {
+                ...state,
+                isDialogDisplayed: false
             }
         }
         default:
