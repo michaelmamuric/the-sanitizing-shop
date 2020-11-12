@@ -8,5 +8,9 @@ export const INITIALIZE_PRODUCTS='INITIALIZE_PRODUCTS';
 export const SHOW_DIALOG='SHOW_DIALOG';
 export const HIDE_DIALOG='HIDE_DIALOG';
 
+// Snackbar
+export const SHOW_SNACKBAR='SHOW_SNACKBAR';
+export const HIDE_SNACKBAR='HIDE_SNACKBAR';
+
 // Shopping
 export const ADD_TO_CART='ADD_TO_CART';

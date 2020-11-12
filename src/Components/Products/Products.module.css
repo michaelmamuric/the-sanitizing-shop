@@ -5,8 +5,8 @@
 }
 
 .Product {
-    text-align: center;
     padding: 10px;
+    text-align: center
 }
 
 .ProductSpan {
@@ -19,5 +19,10 @@
 }
 
 .ImgDialog {
-    width: 300px
+    width: 250px
+}
+
+.DialogAct {
+    display: flex;
+    justify-content: center;
 }

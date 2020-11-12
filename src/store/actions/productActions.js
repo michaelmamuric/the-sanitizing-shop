@@ -27,6 +27,18 @@ export const hideDialog = () => {
     }   
 }
 
+export const showSnackbar = () => {
+    return {
+        type: actionTypes.SHOW_SNACKBAR
+    }
+}
+
+export const hideSnackbar = () => {
+    return {
+        type: actionTypes.HIDE_SNACKBAR
+    }
+}
+
 export const initializeProducts = (productList) => {
     return {
         type: actionTypes.INITIALIZE_PRODUCTS,

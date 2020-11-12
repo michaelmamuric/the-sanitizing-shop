@@ -2,7 +2,9 @@ export {
     fetchProducts,
     initializeProducts,
     showDialog,
-    hideDialog
+    hideDialog,
+    showSnackbar,
+    hideSnackbar
 } from './productActions'
 
 export {

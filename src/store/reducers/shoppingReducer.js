@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: state.cartItems.concat({
-                    productId: action.productId,
+                    product: action.product,
                     qty: action.qty
                 })
             }

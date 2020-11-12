@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     productList: [],
     error: null,
-    isDialogDisplayed: false
+    isDialogDisplayed: false,
+    isSnackbarDisplayed: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +37,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isDialogDisplayed: false
+            }
+        }
+        case actionTypes.SHOW_SNACKBAR: {
+            return {
+                ...state,
+                isSnackbarDisplayed: true
+            }
+        }
+        case actionTypes.HIDE_SNACKBAR: {
+            return {
+                ...state,
+                isSnackbarDisplayed: false
             }
         }
         default:
