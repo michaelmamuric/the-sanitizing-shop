@@ -31,11 +31,10 @@ const Products = (props) => {
     }
 
     return (
-        <React.Fragment>
-            <Card className={classes.ShoppingItemsCard}>
-                <ProductDialog open={isDialogDisplayed} onClose={hideDialog} product={selectedProduct} />
-                <Grid container>
-                {
+        <Card className={classes.ShoppingItemsCard}>
+            <ProductDialog open={isDialogDisplayed} onClose={hideDialog} product={selectedProduct} />
+            <Grid container>
+            {
                 productList.map((product) => {
                         return (
                             <Grid key={product._id} className={classes.Product} item xs={12} sm={4}>
@@ -48,11 +47,10 @@ const Products = (props) => {
                         )
                     }
                 )  
-                }
-                </Grid>
-            </Card>
-            <ProductSnackbar />
-        </React.Fragment>
+            }
+            </Grid>
+            <ProductSnackbar productName={selectedProduct !== null ? selectedProduct.name : ''} />
+        </Card>
     );
 }
 
