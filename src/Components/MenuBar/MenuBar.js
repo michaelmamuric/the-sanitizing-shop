@@ -30,28 +30,31 @@ const MenuBar = (props) => {
     const [displayDrawer, setDisplayDrawer] = useState(false);
 
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <Drawer open={displayDrawer} onClick={() => setDisplayDrawer(false)}>
-                    <SideDrawerItems />
-                </Drawer>
-                <IconButton
-                    className={classes.icon}
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    onClick={() => setDisplayDrawer(true)}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Grid container>
-                    <Typography variant="h6">
-                        Shopping App
-                    </Typography>
-                </Grid>
-                <MenuItems className={classes.menuItems} />
-            </Toolbar>
-        </AppBar>
+        <React.Fragment>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <Drawer open={displayDrawer} onClick={() => setDisplayDrawer(false)}>
+                        <SideDrawerItems />
+                    </Drawer>
+                    <IconButton
+                        className={classes.icon}
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={() => setDisplayDrawer(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Grid container>
+                        <Typography variant="h6">
+                            Shopping App
+                        </Typography>
+                    </Grid>
+                    <MenuItems className={classes.menuItems} />
+                </Toolbar>
+            </AppBar>
+            <Toolbar />
+        </React.Fragment>
     );
 };
 
