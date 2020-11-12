@@ -9,27 +9,44 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import productReducer from './store/reducers/productReducer';
 import shoppingReducer from './store/reducers/shoppingReducer';
 import thunk from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // To enable Redux Developer Tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Combine the reducers to be used
-// Will be expanded later
 const mainReducer = combineReducers({
-  productReducer,
-  shoppingReducer
+  product: productReducer,
+  shopping: shoppingReducer
 });
 
+// Create a Persist Configuration for the Reducers
+const persistConfig = {
+  key: 'root',
+  storage,                // imported above
+  whitelist: ['shopping'] // whitelist of reducers to persist, stored as strings
+}
+
+// Create Persistent Main Reducer
+const persistentReducer = persistReducer(persistConfig, mainReducer);
+
 // Create Redux Store
-const store = createStore(mainReducer, composeEnhancers(
+const store = createStore(persistentReducer, composeEnhancers(
   // To access dispatch method
   applyMiddleware(thunk)
 ));
 
+// Create a Persistent Store
+const persistentStore = persistStore(store);
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <PersistGate persistor={persistentStore}>
+        <App />
+      </PersistGate>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

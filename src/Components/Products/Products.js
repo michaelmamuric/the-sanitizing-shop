@@ -54,9 +54,9 @@ const ShoppingItems = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        productList: state.productReducer.productList,
-        error: state.productReducer.error,
-        isDialogDisplayed: state.productReducer.isDialogDisplayed
+        productList: state.product.productList,
+        error: state.product.error,
+        isDialogDisplayed: state.product.isDialogDisplayed
     }
 }
 
