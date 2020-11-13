@@ -27,3 +27,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.ButtonTxt {
+    text-transform: none;
+}
+
+.DialogTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

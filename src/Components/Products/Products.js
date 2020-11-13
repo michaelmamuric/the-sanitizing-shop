@@ -12,7 +12,7 @@ import * as actions from '../../store/actions/index';
 const Products = (props) => {
 
     // States
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState('');
     
     // Destructure for easier referencing
     const { loadProducts, productList, showDialog, hideDialog, isDialogDisplayed } = props;
