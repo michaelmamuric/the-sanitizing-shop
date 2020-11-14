@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const SideDrawer = (props) => {    
     return (
         <List>
-            <ListItem>
+            <ListItem component={Link} to="/">
                 <ListItemText>Shopping App</ListItemText>
             </ListItem>
             <ListItem component={Link} to="/cart">

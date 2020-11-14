@@ -1,0 +1,37 @@
+.Card {
+    width: 80%;
+    margin: auto
+}
+
+.ImgGrid {
+    display: none
+}
+
+.CartCenter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px
+}
+
+.CartImg {
+    display: none
+}
+
+@media only screen and (min-width: 600px) {
+    .CartImg {
+        display: flex;
+        width: 75px
+    }
+
+    .CartCenter{
+        justify-content: center;
+    }
+
+    .ImgGrid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px        
+    }
+}

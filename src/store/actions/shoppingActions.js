@@ -7,3 +7,10 @@ export const addToCart = (product, qty) => {
         qty
     }
 }
+
+export const deleteFromCart = (index) => {
+    return {
+        type: actionTypes.DELETE_FROM_CART,
+        index
+    }
+}

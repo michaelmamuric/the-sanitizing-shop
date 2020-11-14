@@ -17,6 +17,12 @@ const reducer = (state = initialState, action) => {
                 })
             }
         }
+        case actionTypes.DELETE_FROM_CART: {
+            return {
+                ...state,
+                cartItems: state.cartItems.filter((_, index) => index !== action.index)
+            }
+        }
         default: {
             return state;
         }

@@ -8,5 +8,6 @@ export {
 } from './productActions'
 
 export {
-    addToCart
+    addToCart,
+    deleteFromCart
 } from './shoppingActions'

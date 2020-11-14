@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, makeStyles, Grid, Drawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItems from './MenuItems/MenuItems';
+import { NavLink } from 'react-router-dom';
 import SideDrawerItems from './Drawer/SideDrawerItems';
 
 // Use Styles from Material UI API
@@ -47,7 +48,9 @@ const MenuBar = (props) => {
                     </IconButton>
                     <Grid container>
                         <Typography variant="h6">
+                            <NavLink to="/">
                             Shopping App
+                            </NavLink>
                         </Typography>
                     </Grid>
                     <MenuItems className={classes.menuItems} />
