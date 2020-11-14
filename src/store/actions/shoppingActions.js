@@ -8,6 +8,14 @@ export const addToCart = (product, qty) => {
     }
 }
 
+export const updateCart = (index, newQty) => {
+    return {
+        type: actionTypes.UPDATE_CART,
+        index,
+        newQty
+    }
+}
+
 export const deleteFromCart = (index) => {
     return {
         type: actionTypes.DELETE_FROM_CART,

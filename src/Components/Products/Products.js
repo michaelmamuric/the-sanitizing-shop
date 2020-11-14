@@ -15,7 +15,7 @@ const Products = (props) => {
     const [selectedProduct, setSelectedProduct] = useState('');
     
     // Destructure for easier referencing
-    const { loadProducts, productList, showDialog, hideDialog, isDialogDisplayed } = props;
+    const { loadProducts, productList, showDialog, hideDialog, isDialogDisplayed, hideSnackbar } = props;
 
     // Load Products if productList is empty
     useEffect(() => {
@@ -26,6 +26,7 @@ const Products = (props) => {
 
     // Handler when Dialog Box is to be opened
     const dialogBoxHandler = (product) => {
+        hideSnackbar();
         setSelectedProduct(product);
         showDialog();
     }
@@ -66,7 +67,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadProducts: () => dispatch(actions.fetchProducts()),
         showDialog: () => dispatch(actions.showDialog()),
-        hideDialog: () => dispatch(actions.hideDialog())
+        hideDialog: () => dispatch(actions.hideDialog()),
+        hideSnackbar: () => dispatch(actions.hideSnackbar())
     }
 }
 

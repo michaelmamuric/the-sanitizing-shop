@@ -9,5 +9,6 @@ export {
 
 export {
     addToCart,
+    updateCart,
     deleteFromCart
 } from './shoppingActions'
