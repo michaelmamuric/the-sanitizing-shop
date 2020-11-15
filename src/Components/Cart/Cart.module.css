@@ -7,11 +7,16 @@
     display: none
 }
 
-.CartCenter, .QtyGrid {
+.CartCenter, .QtyGrid, .CheckoutGrid {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 3px;
+}
+
+.CheckoutGrid {
+    justify-content: flex-end;
+    padding: 10px 3px;
 }
 
 .CartImg {
@@ -30,12 +35,12 @@
     justify-content: flex-end;
 }
 
-.TotalLabel {
-    font-weight: bold
+.TotalLabelGrid, .TotalQtyGrid {
+    padding:3px
 }
 
 @media only screen and (min-width: 600px) {
-    
+
     .CartImg {
         display: flex;
         width: 50px
@@ -54,6 +59,10 @@
         align-items: center;
         justify-content: center;
         padding: 3px        
+    }
+
+    .TotalLabelGrid, .TotalQtyGrid {
+        padding: 10px
     }
 
 }

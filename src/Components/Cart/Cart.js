@@ -5,6 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import classes from './Cart.module.css';
 import * as actions from '../../store/actions/index';
 import numeral from 'numeral';
+import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
 
 const Cart = (props) => {
 
@@ -15,6 +16,7 @@ const Cart = (props) => {
     const [state, setState] = useState(
         Object.assign({}, cartItems)
     );
+    const [confirmDialog, setConfirmDialog] = useState(false);
 
     // Hide Snackbar (in case user clicks so fast without waiting for Snackbar to close)
     useEffect(() => {
@@ -50,7 +52,9 @@ const Cart = (props) => {
     }
 
     return (
+        <> {/* Shorthand for <React.Fragment> */}
         <Card className={classes.Card}>
+            <ConfirmDialog open={confirmDialog} onClose={() => setConfirmDialog(false)} />
             <CardContent>
                 <Typography variant="h6">My Cart</Typography>
                 <br />
@@ -115,7 +119,7 @@ const Cart = (props) => {
                     <Grid container>
                         <Grid item xs={0} sm={7}></Grid>
                         <Grid className={classes.TotalLabelGrid} item xs={5} sm={2}>
-                            <Typography className={classes.TotalLabel}>Total</Typography>
+                            <Typography><strong>Total</strong></Typography>
                         </Grid>
                         <Grid className={classes.TotalQtyGrid} item xs={2} sm={2}>
                             <Typography>
@@ -128,6 +132,17 @@ const Cart = (props) => {
                 }
             </CardContent>
         </Card>
+        {
+            cartItems.length > 0 
+            ?
+            <Grid container style={{ margin: 'auto', width: '90%'}}>
+                <Grid className={classes.CheckoutGrid} item xs={12}>
+                    <Button variant="contained" color="primary" onClick={() => setConfirmDialog(true)}>Checkout &#8594;</Button>
+                </Grid>
+            </Grid>
+            : null
+        }
+        </>
     )
 }
 
