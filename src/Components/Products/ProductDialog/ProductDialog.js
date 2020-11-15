@@ -15,8 +15,8 @@ const ProductDialog = (props) => {
 
     // Handles Add to Cart action
     const addToCartHandler = (productId, qty) => {
-        if(qty.trim !== "") {
-            addToCart(productId, qty);
+        if(+qty >= 1) {
+            addToCart(productId, +qty);
             hideDialog();
             setProductQty(1);
             showSnackbar();
@@ -42,7 +42,12 @@ const ProductDialog = (props) => {
                     <Grid item xs={12} sm={5} className={classes.Product}>
                         <DialogActions className={classes.DialogAct}> 
                             <TextField label="Quantity" type="number" size="small" value={productQty} 
-                                onChange={(event) => setProductQty(event.target.value) } 
+                                onChange={(event) => setProductQty(event.target.value) }
+                                InputProps={{
+                                    inputProps: {
+                                        min: 1
+                                    }
+                                }}
                                 disabled={addedToCart}
                             />
                             <Button variant="contained" color="primary"

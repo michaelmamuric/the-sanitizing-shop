@@ -1,5 +1,5 @@
 .Card {
-    width: 80%;
+    width: 90%;
     margin: auto
 }
 
@@ -7,31 +7,53 @@
     display: none
 }
 
-.CartCenter {
+.CartCenter, .QtyGrid {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 3px
+    padding: 3px;
 }
 
 .CartImg {
     display: none
 }
 
+.PriceTimesUnits {
+    display: none
+}
+
+.QtyField {
+    width: 50%;
+}
+
+.QtyGrid {
+    justify-content: flex-end;
+}
+
+.TotalLabel {
+    font-weight: bold
+}
+
 @media only screen and (min-width: 600px) {
+    
     .CartImg {
         display: flex;
-        width: 75px
+        width: 50px
     }
 
-    .CartCenter{
+    .QtyField {
+        width: 30%
+    }
+
+    .QtyGrid {
         justify-content: center;
     }
 
-    .ImgGrid {
+    .ImgGrid, .PriceTimesUnits, .TotalLabelGrid, .TotalQtyGrid {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 3px        
     }
+
 }
