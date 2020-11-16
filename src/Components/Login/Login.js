@@ -12,7 +12,7 @@ import classes from './Login.module.css';
 const Login = (props) => {
 
     // Destructure for easier referencing
-    const { isAuthenticated, hasCheckedOut, loginUser, isLoading } = props;
+    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, invalidLogin } = props;
 
     // States
     const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ const Login = (props) => {
     if(hasCheckedOut && !isAuthenticated) {
         alert= (
             <React.Fragment>
-                <Alert className={classes.ErrorMsg} severity="error">
+                <Alert className={classes.ErrorMsg} severity="info">
                     In order to complete your shopping, please log in with your e-mail address
                     and password.
                 </Alert>
@@ -79,6 +79,16 @@ const Login = (props) => {
                         { isLoading ? <CircularProgress size={25} /> : 'Login' }
                     </Button>
                 </Grid>
+                <Grid className={classes.FormGridElement} item xs={12}>
+                    {
+                        invalidLogin 
+                        ?
+                        <Alert severity="error">
+                            Invalid e-mail and password combination.
+                        </Alert> 
+                        : null
+                    }
+                </Grid>
             </Grid>
             </form>
         </Card>
@@ -88,9 +98,10 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticated: state.auth.token.id !== null,
+        isLoading: state.auth.isLoading,
+        invalidLogin: state.auth.invalidLogin,
         hasCheckedOut: state.shopping.hasCheckedOut,
-        isLoading: state.auth.isLoading
     }
 }
 

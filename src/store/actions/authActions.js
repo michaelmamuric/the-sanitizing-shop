@@ -9,6 +9,21 @@ export const setLoading = (isLoading) => {
     }
 }
 
+export const setInvalidLogin = (invalidLogin) => {
+    return {
+        type: actionTypes.SET_INVALID_LOGIN,
+        invalidLogin
+    }
+}
+
+export const setToken = (tokenId, expiresIn) => {
+    return {
+        type: actionTypes.SET_TOKEN,
+        tokenId,
+        expiresIn
+    }
+}
+
 export const loginUser = (email, password) => {
     return async(dispatch) => {
         try {
@@ -28,13 +43,21 @@ export const loginUser = (email, password) => {
             // Set Loading to false once response is obtained
             dispatch(setLoading(false));
 
-            console.log(response);
+            // Validate Login
+            dispatch(setInvalidLogin(false));
+
+            // Compute Token Expiration
+            const tokenExpiration = new Date(new Date().getTime() + response.data.expiresIn * 1000)
+
+            // Set Token values
+            dispatch(setToken(response.data.idToken, tokenExpiration));
         }
         catch(error) {
-            console.log(error.response);
-
             // Set Loading to false nonetheless
             dispatch(setLoading(false));
+
+            // Invalidate Login
+            dispatch(setInvalidLogin(true));
         }
     }
 }

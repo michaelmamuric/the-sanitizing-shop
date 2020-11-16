@@ -1,9 +1,7 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-    signedInUserEmail: null,
     hasCheckedOut: false,
-    isLoading: false,
     cartItems: []
 };
 
@@ -45,12 +43,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 hasCheckedOut: action.hasCheckedOut
-            }
-        }
-        case actionTypes.SET_LOADING: {
-            return {
-                ...state,
-                isLoading: action.isLoading
             }
         }
         default: {

@@ -17,4 +17,8 @@ export const ADD_TO_CART='ADD_TO_CART';
 export const UPDATE_CART='UPDATE_CART';
 export const DELETE_FROM_CART='DELETE_FROM_CART';
 export const SET_HAS_CHECKED_OUT='SET_HAS_CHECKED_OUT';
+
+// Auth
 export const SET_LOADING='SET_LOADING';
+export const SET_INVALID_LOGIN='SET_INVALID_LOGIN';
+export const SET_TOKEN='SET_TOKEN';

@@ -27,8 +27,8 @@ const mainReducer = combineReducers({
 // Create a Persist Configuration for the Reducers
 const persistConfig = {
   key: 'root',
-  storage,                // imported above
-  whitelist: ['shopping'] // whitelist of reducers to persist, stored as strings
+  storage,                        // imported above
+  whitelist: ['shopping', 'auth'] // whitelist of reducers to persist, stored as strings
 }
 
 // Create Persistent Main Reducer

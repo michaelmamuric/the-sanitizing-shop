@@ -48,7 +48,7 @@ const ConfirmDialog = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.token.id !== null
     }
 }
 
