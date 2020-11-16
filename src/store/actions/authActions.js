@@ -16,11 +16,40 @@ export const setInvalidLogin = (invalidLogin) => {
     }
 }
 
-export const setToken = (tokenId, expiresIn) => {
+export const setToken = (tokenId, expiresIn, localId) => {
     return {
         type: actionTypes.SET_TOKEN,
         tokenId,
-        expiresIn
+        expiresIn,
+        localId
+    }
+}
+
+export const logoutUser = () => {
+    return {
+        type: actionTypes.LOGOUT_USER
+    }
+}
+
+export const setTokenTimeout = (expiresIn) => {
+    return (dispatch) => {
+        setTimeout(() => {
+            dispatch(logoutUser());
+        }, expiresIn * 1000); // must be multiplied by 1000 since Firebase returns expiresIn in seconds
+    }
+}
+
+export const checkAuthState = (token) => {
+    return (dispatch) => {
+        if(token.id === null)
+            dispatch(logoutUser());
+        else {
+            const expirationDate = new Date(token.expiresIn);
+            
+            // If token, expiration date has been reached, auto log-out user
+            if(expirationDate <= new Date())
+                dispatch(logoutUser());
+        }
     }
 }
 
@@ -50,7 +79,10 @@ export const loginUser = (email, password) => {
             const tokenExpiration = new Date(new Date().getTime() + response.data.expiresIn * 1000)
 
             // Set Token values
-            dispatch(setToken(response.data.idToken, tokenExpiration));
+            dispatch(setToken(response.data.idToken, tokenExpiration, response.data.localId));
+
+            // Set Token timeout
+            dispatch(setTokenTimeout(response.data.expiresIn));
         }
         catch(error) {
             // Set Loading to false nonetheless

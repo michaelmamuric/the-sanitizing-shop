@@ -12,7 +12,8 @@ import classes from './Login.module.css';
 const Login = (props) => {
 
     // Destructure for easier referencing
-    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, invalidLogin } = props;
+    // props.history is accessible as Login is a child of App component where react-router-dom was used
+    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, invalidLogin, history } = props;
 
     // States
     const [email, setEmail] = useState('');
@@ -22,6 +23,14 @@ const Login = (props) => {
     const loginHandler = (event) => {
         event.preventDefault();
         loginUser(email, password);
+
+        // If logged-in succesfully
+        if(!invalidLogin) {
+            if(hasCheckedOut)
+                history.push('/checkout');  // Redirect to Checkout
+            else
+                history.push('/');          // Redirect to Homepage
+        }
     }
 
     // Alert Message

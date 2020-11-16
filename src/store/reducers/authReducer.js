@@ -5,6 +5,7 @@ const initialState = {
         id: null,
         expiresIn: null
     },
+    localId: null,
     invalidLogin: false,
     isLoading: false
 };
@@ -27,10 +28,20 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: {
-                    ...state.token,
                     id: action.tokenId,
                     expiresIn: action.expiresIn
-                }
+                },
+                localId: action.localId
+            }
+        }
+        case actionTypes.LOGOUT_USER: {
+            return {
+                ...state,
+                token: {
+                    id: null,
+                    expiresIn: null,
+                },
+                localId: null
             }
         }
         default: {
