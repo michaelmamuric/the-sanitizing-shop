@@ -5,6 +5,7 @@ import MenuBar from './Components/MenuBar/MenuBar';
 import Products from './Components/Products/Products';
 import Cart from './Components/Cart/Cart';
 import Orders from './Components/Orders/Orders';
+import Login from './Components/Login/Login';
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" exact component={Products} />
             <Route path="/cart" component={Cart} />
             <Route path="/orders" component={Orders} />
+            <Route path="/login" component={Login} />
           </Switch>
         </Grid>
       </Grid>

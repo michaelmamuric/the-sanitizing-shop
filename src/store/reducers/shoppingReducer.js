@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     signedInUserEmail: null,
     hasCheckedOut: false,
+    isLoading: false,
     cartItems: []
 };
 
@@ -38,6 +39,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: state.cartItems.filter((_, index) => index !== action.index)
+            }
+        }
+        case actionTypes.SET_HAS_CHECKED_OUT: {
+            return {
+                ...state,
+                hasCheckedOut: action.hasCheckedOut
+            }
+        }
+        case actionTypes.SET_LOADING: {
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
         }
         default: {

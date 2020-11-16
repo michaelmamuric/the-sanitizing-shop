@@ -22,3 +22,10 @@ export const deleteFromCart = (index) => {
         index
     }
 }
+
+export const setHasCheckedOut = (hasCheckedOut) => {
+    return {
+        type: actionTypes.SET_HAS_CHECKED_OUT,
+        hasCheckedOut
+    }
+}

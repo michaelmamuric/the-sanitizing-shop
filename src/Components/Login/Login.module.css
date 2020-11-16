@@ -1,0 +1,26 @@
+.LoginCard {
+    margin: auto;
+    width: 80%;
+    padding: 10px
+}
+
+.FormGrid {
+    margin: auto;
+    width: 100%;
+}
+
+.FormGridElement {
+    display: flex;
+    justify-content: center;
+}
+
+.ErrorMsg {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 600px) {
+    .LoginCard {
+        width: 25%
+    }
+}

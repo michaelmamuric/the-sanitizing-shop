@@ -10,5 +10,11 @@ export {
 export {
     addToCart,
     updateCart,
-    deleteFromCart
+    deleteFromCart,
+    setHasCheckedOut,
 } from './shoppingActions'
+
+export {
+    loginUser,
+    setLoading
+} from './authActions';

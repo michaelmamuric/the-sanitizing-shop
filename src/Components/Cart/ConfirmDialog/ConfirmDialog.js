@@ -8,13 +8,28 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import classes from './ConfirmDialog.module.css';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../../../store/actions/index';
 
 const ConfirmDialog = (props) => {
+
+    // Destructure for easier referencing
+    const { setHasCheckedOut, history, open, onClose, isAuthenticated } = props;
+
+    const checkOutHandler = (hasCheckedOut) => {
+        setHasCheckedOut(hasCheckedOut);
+        // props.history can now be accessed thanks to withRouter
+        // If user has not authenticated, redirect to login
+        if(!isAuthenticated)
+            history.push('/login');
+    }
+
     return (
-        <Dialog open={props.open} onClose={props.onClose}>
+        <Dialog open={open} onClose={onClose}>
             <DialogTitle disableTypography className={classes.DialogTitle}>
                 <h3>Checkout</h3>
-                <IconButton onClick={props.onClose}>
+                <IconButton onClick={onClose}>
                     <CloseIcon size="small" />
                 </IconButton>
             </DialogTitle>
@@ -24,11 +39,23 @@ const ConfirmDialog = (props) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button color="primary">Yes</Button>
-                <Button color="primary" onClick={props.onClose}>No</Button>
+                <Button color="primary" onClick={() => checkOutHandler(true)}>Yes</Button>
+                <Button color="primary" onClick={onClose}>No</Button>
             </DialogActions>
         </Dialog>       
     )
 }
 
-export default ConfirmDialog;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setHasCheckedOut: (hasCheckedOut) => dispatch(actions.setHasCheckedOut(hasCheckedOut)) 
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ConfirmDialog));

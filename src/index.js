@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import productReducer from './store/reducers/productReducer';
 import shoppingReducer from './store/reducers/shoppingReducer';
+import authReducer from './store/reducers/authReducer';
 import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -19,7 +20,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // Combine the reducers to be used
 const mainReducer = combineReducers({
   product: productReducer,
-  shopping: shoppingReducer
+  shopping: shoppingReducer,
+  auth: authReducer
 });
 
 // Create a Persist Configuration for the Reducers

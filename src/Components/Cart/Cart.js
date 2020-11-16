@@ -68,8 +68,8 @@ const Cart = (props) => {
                         cartTotal += priceTimesQty;
 
                         return (
-                            <React.Fragment>
-                                <Grid key={item.product._id} className={classes.ImgGrid} item xs={0} sm={3}>
+                            <React.Fragment key={item.product._id}>
+                                <Grid className={classes.ImgGrid} item xs={false} sm={3}>
                                     <img className={classes.CartImg} src={item.product.image} alt={item.product.name} />
                                 </Grid>
                                 <Grid className={classes.CartCenter} item xs={5} sm={3}>
@@ -94,7 +94,7 @@ const Cart = (props) => {
                                         onChange={(event) => qtyChangedHandler(event, index)}
                                     />
                                 </Grid>
-                                <Grid className={classes.PriceTimesUnits} item xs={0} sm={2}>
+                                <Grid className={classes.PriceTimesUnits} item xs={false} sm={2}>
                                     <Typography>
                                         {
                                             numeral(priceTimesQty).format('$0,0.00')
@@ -117,7 +117,7 @@ const Cart = (props) => {
                     cartItems.length > 0 
                     ?
                     <Grid container>
-                        <Grid item xs={0} sm={7}></Grid>
+                        <Grid item xs={false} sm={7}></Grid>
                         <Grid className={classes.TotalLabelGrid} item xs={5} sm={2}>
                             <Typography><strong>Total</strong></Typography>
                         </Grid>
