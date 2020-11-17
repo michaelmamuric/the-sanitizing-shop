@@ -18,25 +18,22 @@ const Login = (props) => {
     // States
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [submittedForm, setSubmittedForm] = useState(false);
 
     // Handler when user clicks login
     const loginHandler = async(event) => {
         event.preventDefault();
         loginUser(email, password);
-        setSubmittedForm(true);
     }
 
     useEffect(() => {
-        // If user logged in successfully
-        if(loginError === null && submittedForm) {
+        // If user has successfully authenticated
+        if(isAuthenticated) {
             if(hasCheckedOut)
                 history.push('/checkout');  // Redirect to checkout
             else
                 history.push('/');          // Redirect to homepage
-
         }
-    }, [loginError]);
+    }, [isAuthenticated, hasCheckedOut, history])
 
     // Alert Message
     let alert = null;
@@ -112,7 +109,6 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.auth.token,
         isAuthenticated: state.auth.token.id !== null,
         isLoading: state.auth.isLoading,
         loginError: state.auth.error,
