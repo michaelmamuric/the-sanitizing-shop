@@ -3,10 +3,10 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     token: {
         id: null,
-        expiresIn: null
+        expiresIn: null,
+        localId: null
     },
-    localId: null,
-    invalidLogin: false,
+    error: null,
     isLoading: false
 };
 
@@ -18,30 +18,32 @@ const reducer = (state = initialState, action) => {
                 isLoading: action.isLoading
             }
         }
-        case actionTypes.SET_INVALID_LOGIN: {
+        case actionTypes.SET_LOGIN_ERROR: {
             return {
                 ...state,
-                invalidLogin: action.invalidLogin
+                error: action.error
             }
         }
         case actionTypes.SET_TOKEN: {
             return {
                 ...state,
                 token: {
+                    ...state.token,
                     id: action.tokenId,
-                    expiresIn: action.expiresIn
-                },
-                localId: action.localId
+                    expiresIn: action.expiresIn,
+                    localId: action.localId
+                }
             }
         }
         case actionTypes.LOGOUT_USER: {
             return {
                 ...state,
                 token: {
+                    ...state.token,
                     id: null,
                     expiresIn: null,
-                },
-                localId: null
+                    localId: null
+                }            
             }
         }
         default: {

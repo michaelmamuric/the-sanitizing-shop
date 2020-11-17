@@ -4,7 +4,8 @@ const initialState = {
     productList: [],
     error: null,
     isDialogDisplayed: false,
-    isSnackbarDisplayed: false
+    isSnackbarDisplayed: false,
+    isLoading: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +50,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isSnackbarDisplayed: false
+            }
+        }
+        case actionTypes.SET_LOADING_PRODUCTS: {
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
         }
         default:

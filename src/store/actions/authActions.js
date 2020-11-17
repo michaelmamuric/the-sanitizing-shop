@@ -9,10 +9,10 @@ export const setLoading = (isLoading) => {
     }
 }
 
-export const setInvalidLogin = (invalidLogin) => {
+export const setError = (error) => {
     return {
-        type: actionTypes.SET_INVALID_LOGIN,
-        invalidLogin
+        type: actionTypes.SET_LOGIN_ERROR,
+        error
     }
 }
 
@@ -72,9 +72,6 @@ export const loginUser = (email, password) => {
             // Set Loading to false once response is obtained
             dispatch(setLoading(false));
 
-            // Validate Login
-            dispatch(setInvalidLogin(false));
-
             // Compute Token Expiration
             const tokenExpiration = new Date(new Date().getTime() + response.data.expiresIn * 1000)
 
@@ -83,13 +80,15 @@ export const loginUser = (email, password) => {
 
             // Set Token timeout
             dispatch(setTokenTimeout(response.data.expiresIn));
+
+            dispatch(setError(null));
         }
         catch(error) {
             // Set Loading to false nonetheless
             dispatch(setLoading(false));
 
-            // Invalidate Login
-            dispatch(setInvalidLogin(true));
+            // Invalid Login
+            dispatch(setError(error.response.data));
         }
     }
 }

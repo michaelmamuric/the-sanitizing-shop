@@ -46,12 +46,29 @@ export const initializeProducts = (productList) => {
     }
 }
 
+export const setLoadingProducts = (isLoading) => {
+    return {
+        type: actionTypes.SET_LOADING_PRODUCTS,
+        isLoading
+    }
+}
+
 export const fetchProducts = () => {
     return async(dispatch) => {
         try {
+            // Set Loading to true
+            dispatch(setLoadingProducts(true));
+            
             const response = await axios.get(backendURL);
+            
+            // Set Loading to false once response is obtained
+            dispatch(setLoadingProducts(false));
+            
+            // Initialize products
             dispatch(initializeProducts(response.data));
         } catch(error) {
+            // Set Loading to false nonetheless
+            dispatch(setLoadingProducts(false));
             dispatch(setError(error.message));
         }
     }

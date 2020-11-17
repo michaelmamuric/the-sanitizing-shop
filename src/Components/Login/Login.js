@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -13,25 +13,30 @@ const Login = (props) => {
 
     // Destructure for easier referencing
     // props.history is accessible as Login is a child of App component where react-router-dom was used
-    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, invalidLogin, history } = props;
+    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, loginError, history } = props;
 
     // States
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [submittedForm, setSubmittedForm] = useState(false);
 
     // Handler when user clicks login
-    const loginHandler = (event) => {
+    const loginHandler = async(event) => {
         event.preventDefault();
         loginUser(email, password);
-
-        // If logged-in succesfully
-        if(!invalidLogin) {
-            if(hasCheckedOut)
-                history.push('/checkout');  // Redirect to Checkout
-            else
-                history.push('/');          // Redirect to Homepage
-        }
+        setSubmittedForm(true);
     }
+
+    useEffect(() => {
+        // If user logged in successfully
+        if(loginError === null && submittedForm) {
+            if(hasCheckedOut)
+                history.push('/checkout');  // Redirect to checkout
+            else
+                history.push('/');          // Redirect to homepage
+
+        }
+    }, [loginError]);
 
     // Alert Message
     let alert = null;
@@ -90,7 +95,7 @@ const Login = (props) => {
                 </Grid>
                 <Grid className={classes.FormGridElement} item xs={12}>
                     {
-                        invalidLogin 
+                        loginError !== null
                         ?
                         <Alert severity="error">
                             Invalid e-mail and password combination.
@@ -107,9 +112,10 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
+        token: state.auth.token,
         isAuthenticated: state.auth.token.id !== null,
         isLoading: state.auth.isLoading,
-        invalidLogin: state.auth.invalidLogin,
+        loginError: state.auth.error,
         hasCheckedOut: state.shopping.hasCheckedOut,
     }
 }
