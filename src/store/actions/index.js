@@ -19,3 +19,8 @@ export {
     setLoading,
     checkAuthState
 } from './authActions';
+
+export {
+    setActiveStep,
+    updateBillingField
+} from './checkoutActions'

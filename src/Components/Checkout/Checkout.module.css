@@ -1,0 +1,18 @@
+.CheckoutDiv {
+    margin: auto;
+    width: 80%;
+}
+
+.CheckoutCard {
+    padding: 10px
+}
+
+.BillingGrid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BillingInput {
+    width: 90%;
+}

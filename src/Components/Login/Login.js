@@ -31,9 +31,17 @@ const Login = (props) => {
             if(hasCheckedOut)
                 history.push('/checkout');  // Redirect to checkout
             else
-                history.push('/');          // Redirect to homepage
+                history.push('/');          // Redirect to
         }
     }, [isAuthenticated, hasCheckedOut, history])
+
+    useEffect(() => {
+        // Reset fields if authentication fails
+        if(loginError !== null) {
+            setEmail('');
+            setPassword('');
+        }
+    }, [loginError])
 
     // Alert Message
     let alert = null;

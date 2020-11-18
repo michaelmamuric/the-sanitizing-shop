@@ -24,3 +24,7 @@ export const SET_LOADING='SET_LOADING';
 export const SET_LOGIN_ERROR='SET_LOGIN_ERROR';
 export const SET_TOKEN='SET_TOKEN';
 export const LOGOUT_USER='LOGOUT_USER';
+
+// Checkout
+export const SET_ACTIVE_STEP='SET_ACTIVE_STEP';
+export const UPDATE_BILLING_FIELD='UPDATE_BILLING_FIELD';
