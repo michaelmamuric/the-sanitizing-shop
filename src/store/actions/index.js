@@ -22,5 +22,6 @@ export {
 
 export {
     setActiveStep,
-    updateBillingField
+    updateBillingField,
+    setValidity
 } from './checkoutActions'

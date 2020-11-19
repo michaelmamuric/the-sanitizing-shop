@@ -14,3 +14,11 @@ export const updateBillingField = (field, value) => {
         value
     }
 }
+
+export const setValidity = (field, validity) => {
+    return {
+        type: actionTypes.SET_VALIDITY,
+        field,
+        validity
+    }
+}

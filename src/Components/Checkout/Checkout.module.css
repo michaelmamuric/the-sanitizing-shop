@@ -7,7 +7,7 @@
     padding: 10px
 }
 
-.BillingGrid {
+.BillingGrid, .FormError {
     display: flex;
     align-items: center;
     justify-content: center;

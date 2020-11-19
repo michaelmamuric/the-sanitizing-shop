@@ -30,7 +30,7 @@ const Cart = (props) => {
         setState({
             ...state,
             [index]: {
-                ...state.[index].product,
+                ...state[index].product,
                 qty: newQty
             }
         });
@@ -64,7 +64,7 @@ const Cart = (props) => {
                     ?
                     cartItems.map((item, index) => {
                         const productPrice = item.product.price;
-                        const priceTimesQty = state.[index].qty * productPrice;
+                        const priceTimesQty = state[index].qty * productPrice;
                         cartTotal += priceTimesQty;
 
                         return (
@@ -84,7 +84,7 @@ const Cart = (props) => {
                                 </Grid>
                                 <Grid className={classes.QtyGrid} item xs={3} sm={2}>
                                     <TextField className={classes.QtyField} type="number" size="small"
-                                        value={state.[index].qty}
+                                        value={state[index].qty}
                                         InputProps={{
                                             inputProps: {
                                                 min: 1,

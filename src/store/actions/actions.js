@@ -28,3 +28,4 @@ export const LOGOUT_USER='LOGOUT_USER';
 // Checkout
 export const SET_ACTIVE_STEP='SET_ACTIVE_STEP';
 export const UPDATE_BILLING_FIELD='UPDATE_BILLING_FIELD';
+export const SET_VALIDITY='SET_VALIDITY';

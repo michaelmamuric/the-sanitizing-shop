@@ -5,6 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Billing from './CheckoutSteps/Billing';
+import Payment from './CheckoutSteps/Payment';
 import classes from './Checkout.module.css'
 
 const Checkout = (props) => {
@@ -24,14 +25,7 @@ const Checkout = (props) => {
             </Stepper>
             <Card className={classes.CheckoutCard}>
             {
-                activeStep === 0
-                ?
-                <Billing />
-                :
-                <div>
-                    {/* Put Payment component here (to be implemented)  */}
-                    Next Step
-                </div>
+                activeStep === 0 ? <Billing /> : <Payment /> 
             }
             </Card>
         </div>

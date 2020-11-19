@@ -3,55 +3,13 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     steps: ['Billing and Address Details', 'Credit Card Details'],
     billingFields: {
-        firstName: {
-            inputType: 'TextField', // inputType is the desired Material-UI components to be rendered
-            label: 'First Name',
-            value: ''
-        },
-        lastName: {
-            inputType: 'TextField',
-            label: 'Last Name',
-            value: ''
-        },
-        houseNumber: {
-            inputType: 'TextField',
-            label: 'House/Apt Number',
-            value: ''
-        },
-        streetNumber: {
-            inputType: 'TextField',
-            label: 'Street Number',
-            value: ''
-        },
-        city: {
-            inputType: 'TextField',
-            label: 'City',
-            value: ''
-        },
-        province: {
-            inputType: 'Select',
-            label: 'Province/Territory',
-            value: '',
-            options: [
-                { key: 'AB', value: 'Alberta' },
-                { key: 'BC', value: 'British Columbia' },
-                { key: 'MB', value: 'Manitoba' },
-                { key: 'NB', value: 'New Brunswick' },
-                { key: 'NL', value: 'Newfoundland and Labrador' },
-                { key: 'NS', value: 'Nova Scotia' },
-                { key: 'NT', value: 'Northwest Territories' },
-                { key: 'NU', value: 'Nunavut' },
-                { key: 'ON', value: 'Ontario' },
-                { key: 'QC', value: 'Quebec' },
-                { key: 'SK', value: 'Saskatchewan' },
-                { key: 'YT', value: 'Yukon' }                    
-            ]
-        },
-        postalCode: {
-            inputType: 'TextField',
-            label: 'Postal Code',
-            value: ''
-        } 
+        firstName: { value: '', isValid: false },
+        lastName: { value: '', isValid: false },
+        houseNumber: { value: '', isValid: false },
+        street: { value: '', isValid: false },
+        city: { value: '', isValid: false },
+        province: { value: '', isValid: false },
+        postalCode: { value: '', isValid: false }, 
     },
     activeStep: 0
 }
@@ -70,8 +28,20 @@ const reducer = (state = initialState, action) => {
                 billingFields: {
                     ...state.billingFields,
                     [action.field]: {
-                        ...state.billingFields.[action.field],
+                        ...state.billingFields[action.field],
                         value: action.value
+                    }
+                }
+            }
+        }
+        case actionTypes.SET_VALIDITY: {
+            return {
+                ...state,
+                billingFields: {
+                    ...state.billingFields,
+                    [action.field]: {
+                        ...state.billingFields[action.field],
+                        isValid: action.validity
                     }
                 }
             }
