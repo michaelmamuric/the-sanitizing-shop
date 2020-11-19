@@ -174,7 +174,7 @@ const Billing = (props) => {
             !formValid ? 
             <>
                 <Alert severity="error" className={classes.FormError}>
-                    One or more fields have errors.
+                    One or more fields have errors. Please try again.
                 </Alert>
                 <br />
             </> : null
@@ -240,7 +240,7 @@ const Billing = (props) => {
             })
         }
             <Grid item xs={12} className={classes.BillingGrid}>
-                <Button variant="contained" type="submit" color="primary">
+                <Button variant="contained" type="submit" color="primary" className={classes.PaymentBtns}>
                     Proceed to Payment &#8594;
                 </Button>
             </Grid>

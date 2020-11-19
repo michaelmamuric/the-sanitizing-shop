@@ -7,12 +7,36 @@
     padding: 10px
 }
 
-.BillingGrid, .FormError {
+.BillingGrid, .FormError, .FormInfo {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.PaymentGrid {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .BillingInput {
-    width: 90%;
+    width: 100%;
+}
+
+.PaymentExpiryDate {
+    width: 49%
+}
+
+.PaymentBtns {
+    width: 70%;
+}
+
+.PaymentLogo {
+    width: 40%;
+}
+
+@media only screen and (min-width: 600px) {
+    .PaymentLogo {
+        width: 15%;
+    }
 }
