@@ -23,6 +23,8 @@ const ConfirmDialog = (props) => {
         // If user has not authenticated, redirect to login
         if(!isAuthenticated)
             history.push('/login');
+        else
+            history.push('/checkout');
     }
 
     return (

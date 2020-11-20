@@ -20,7 +20,7 @@ const Billing = (props) => {
     // Decided to manage form parameters here instead of in the Redux reducer
     // Validity is still managed in the reducer in order to persist validity after page refresh
     // because redux-persist is being used
-    const formFields = useState({
+    const [formFields, setFormFields] = useState({
         firstName: {
             inputType: 'TextField', // inputType is the Material-UI component to be rendered
             label: 'First Name',
@@ -28,7 +28,8 @@ const Billing = (props) => {
                 method: 'isRequired',   // method is the validator method to be used
                 params: null,
                 errorMsg: 'First Name is Required'
-            } 
+            },
+            touched: false
         },
         lastName: {
             inputType: 'TextField',
@@ -37,7 +38,8 @@ const Billing = (props) => {
                 method: 'isRequired',
                 params: null,
                 errorMsg: 'Last Name is Required'
-            }
+            },
+            touched: false
         },
         houseNumber: {
             inputType: 'TextField',
@@ -46,7 +48,8 @@ const Billing = (props) => {
                 method: 'isRequired',
                 params: null,
                 errorMsg: 'House Number is Required'
-            }
+            },
+            touched: false
         },
         street: {
             inputType: 'TextField',
@@ -55,7 +58,8 @@ const Billing = (props) => {
                 method: 'isRequired',
                 params: null,
                 errorMsg: 'Street is Required'
-            } 
+            },
+            touched: false
         },
         city: {
             inputType: 'TextField',
@@ -64,7 +68,8 @@ const Billing = (props) => {
                 method: 'isRequired',
                 params: null,
                 errorMsg: 'City is Required'
-            }
+            },
+            touched: false
         },
         province: {
             inputType: 'Select',
@@ -88,7 +93,8 @@ const Billing = (props) => {
                 method: 'isRequired',
                 params: null,
                 errorMsg: 'Province is Required'
-            }
+            },
+            touched: false
         },
         postalCode: {
             inputType: 'TextField',
@@ -97,9 +103,10 @@ const Billing = (props) => {
                 method: 'isPostalCode',
                 params: 'CA',
                 errorMsg: 'Postal Code is invalid'
-            } 
+            },
+            touched: false
         },
-    })[0];
+    });
     const [formValid, setFormValid] = useState(true);
 
     // Put checkout fields in an array
@@ -141,6 +148,15 @@ const Billing = (props) => {
         // Trim value
         const trimmedValue = validator.trim(value);
 
+        // Update field to be "touched"
+        setFormFields({
+            ...formFields,
+            [field]: {
+                ...formFields[field],
+                touched: true
+            }
+        });
+
         // Update value
         updateBillingField(field, value);
 
@@ -169,22 +185,25 @@ const Billing = (props) => {
     }
 
     return (
-        <form onSubmit={submitFormHandler}>
+        <>
         {
             !formValid ? 
             <>
                 <Alert severity="error" className={classes.FormError}>
-                    One or more fields have errors. Please try again.
+                    One or more fields have errors. Please fill in all the fields, 
+                    and make sure to follow the correct format.
                 </Alert>
                 <br />
             </> : null
         }
+        <form onSubmit={submitFormHandler}>
         <Grid container spacing={1}>
         {
             fields.map((input, index) => {
                 const value = billingFields[input.name].value;      // Value is managed in Redux
                 const isValid = billingFields[input.name].isValid;  // Validity is also Redux-managed
                 const validationMethod = formFields[input.name].validation.method;
+                const touched = formFields[input.name].touched;
                 const errorMsg = formFields[input.name].validation.errorMsg;
 
                 switch(input.inputType) {
@@ -196,15 +215,15 @@ const Billing = (props) => {
                                 value={value}
                                 error={
                                     validationMethod === 'isRequired' ?
-                                    validator.trim(value) === '' && !isValid :
-                                    !isValid
+                                    validator.trim(value) === '' && !isValid && touched :
+                                    !isValid && touched
                                 }
                                 helperText={
                                     validationMethod === 'isRequired' 
                                     ?
-                                        validator.trim(value) === '' && !isValid ? errorMsg : ' '
+                                        validator.trim(value) === '' && !isValid && touched ? errorMsg : ' '
                                     :
-                                    !isValid ? errorMsg : ' '                                    
+                                    !isValid && touched ? errorMsg : ' '                                    
                                 }
                                 onChange={(event) => inputChangedHandler(input.name, event.target.value)}
                                 />
@@ -215,7 +234,7 @@ const Billing = (props) => {
                         return (
                             <Grid key={index} item xs={12} sm={4} className={classes.BillingGrid}>
                                 <FormControl variant="outlined" className={classes.BillingInput}
-                                    error={!isValid && value === ''}>
+                                    error={!isValid && value === '' && touched}>
                                 <InputLabel>{input.label}</InputLabel>
                                 <Select name={input.name} native value={value}
                                     onChange={(event) => inputChangedHandler(input.name, event.target.value)}
@@ -229,7 +248,7 @@ const Billing = (props) => {
                                         ))
                                     }    
                                 </Select>
-                                <FormHelperText>{isValid && value !== '' ? ' ' : errorMsg}</FormHelperText>
+                                <FormHelperText>{!isValid && value === '' && touched ? errorMsg : ' '}</FormHelperText>
                                 </FormControl>
                             </Grid>                            
                         )
@@ -246,6 +265,7 @@ const Billing = (props) => {
             </Grid>
         </Grid>
         </form>
+        </>
     )
 }
 

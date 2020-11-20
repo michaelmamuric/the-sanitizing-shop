@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, makeStyles, Grid, Drawer } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, makeStyles, Drawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItems from './MenuItems/MenuItems';
 import { NavLink } from 'react-router-dom';
 import SideDrawerItems from './Drawer/SideDrawerItems';
+import logo from './logo.png';
 
 // Use Styles from Material UI API
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     // Menu Items
     menuItems: {
         display: 'flex',
+        justifyContent: 'flex-end',
         [theme.breakpoints.down('xs')]: {
             display: 'none'
         }
@@ -31,7 +33,7 @@ const MenuBar = (props) => {
     const [displayDrawer, setDisplayDrawer] = useState(false);
 
     return (
-        <React.Fragment>
+        <>
             <AppBar position="fixed">
                 <Toolbar>
                     <Drawer open={displayDrawer} onClick={() => setDisplayDrawer(false)}>
@@ -46,18 +48,14 @@ const MenuBar = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Grid container>
-                        <Typography variant="h6">
-                            <NavLink to="/">
-                            Shopping App
-                            </NavLink>
-                        </Typography>
-                    </Grid>
+                    <NavLink to="/" >
+                        <img src={logo} style={{width: '180px'}} alt="The Sanitizing Shop" />
+                    </NavLink>
                     <MenuItems className={classes.menuItems} />
                 </Toolbar>
             </AppBar>
             <Toolbar />
-        </React.Fragment>
+        </>
     );
 };
 

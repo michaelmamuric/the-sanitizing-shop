@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actions';
-import { authURL } from '../../secrets/secrets';
+import { authURL, getUserDataURL } from '../../secrets/secrets';
 
 export const setLoading = (isLoading) => {
     return {
@@ -40,15 +40,29 @@ export const setTokenTimeout = (expiresIn) => {
 }
 
 export const checkAuthState = (token) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         if(token.id === null)
             dispatch(logoutUser());
         else {
-            const expirationDate = new Date(token.expiresIn);
-            
-            // If token, expiration date has been reached, auto log-out user
-            if(expirationDate <= new Date())
+            try {
+                // Send request to Firebase to verify token validity
+                const response = await axios.post(getUserDataURL, { idToken: token.id});
+
+                // localId in token matches what is stored in Firebase's server
+                // Response data format: https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
+                if(response.data.users[0].localId === token.localId) {                
+                    const expirationDate = new Date(token.expiresIn);
+                    
+                    // If token, expiration date has been reached, auto log-out user
+                    if(expirationDate <= new Date())
+                        dispatch(logoutUser());
+                }
+                else {
+                    dispatch(logoutUser());
+                }
+            } catch(error) {
                 dispatch(logoutUser());
+            }
         }
     }
 }

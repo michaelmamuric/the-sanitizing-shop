@@ -7,6 +7,7 @@ import Cart from './Components/Cart/Cart';
 import Orders from './Components/Orders/Orders';
 import Login from './Components/Login/Login';
 import Checkout from './Components/Checkout/Checkout';
+import Logout from './Components/Logout/Logout';
 import { Switch, Route } from 'react-router-dom';
 import * as actions from './store/actions/index';
 import { connect } from 'react-redux';
@@ -33,6 +34,7 @@ const App = (props) => {
             <Route path="/cart" component={Cart} />
             <Route path="/orders" component={Orders} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
             <Route path="/checkout" component={Checkout} />
           </Switch>
         </Grid>

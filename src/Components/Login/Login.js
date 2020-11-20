@@ -31,7 +31,7 @@ const Login = (props) => {
             if(hasCheckedOut)
                 history.push('/checkout');  // Redirect to checkout
             else
-                history.push('/');          // Redirect to
+                history.push('/');          // Redirect to Homepage
         }
     }, [isAuthenticated, hasCheckedOut, history])
 
@@ -49,18 +49,18 @@ const Login = (props) => {
     // Display alert message if user has checked out, and has not authenticated yet
     if(hasCheckedOut && !isAuthenticated) {
         alert= (
-            <React.Fragment>
+            <>
                 <Alert className={classes.ErrorMsg} severity="info">
                     In order to complete your shopping, please log in with your e-mail address
                     and password.
                 </Alert>
                 <br />
-            </React.Fragment>
+            </>
         )
     }
 
     return (
-        <React.Fragment>
+        <>
         {alert}
         <Card className={classes.LoginCard}>
             <form onSubmit={loginHandler}>
@@ -94,7 +94,7 @@ const Login = (props) => {
                     />
                 </Grid>
                 <Grid className={classes.FormGridElement} item xs={12}>
-                    <Button variant="contained" type="submit" onClick={loginHandler}>
+                    <Button className={classes.LoginBtn} variant="contained" type="submit" onClick={loginHandler}>
                         { isLoading ? <CircularProgress size={25} /> : 'Login' }
                     </Button>
                 </Grid>
@@ -111,7 +111,7 @@ const Login = (props) => {
             </Grid>
             </form>
         </Card>
-        </React.Fragment>
+        </>
     )
 }
 

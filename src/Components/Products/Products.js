@@ -42,7 +42,7 @@ const Products = (props) => {
                     <CircularProgress />
                 </div>
                 :
-                <React.Fragment>
+                <>
                     <ProductDialog open={isDialogDisplayed} onClose={hideDialog} product={selectedProduct} />
                     <Grid container>
                     {
@@ -67,7 +67,7 @@ const Products = (props) => {
                     }
                     </Grid>
                     <ProductSnackbar productName={selectedProduct.name} />
-                </React.Fragment> 
+                </> 
             }
         </Card>
     );
