@@ -6,6 +6,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import Badge from '@material-ui/core/Badge';
 import { NavLink } from 'react-router-dom';
 
 const MenuItems = (props) => {
@@ -35,11 +36,13 @@ const MenuItems = (props) => {
     }
     
     return (
-        <Grid className={props.className} container justify="flex-end">
-            <Button component={NavLink} to="/cart" color="inherit">
-                <ShoppingCartIcon />
-                Cart
-            </Button>
+        <Grid className={props.className} container>
+            <Badge badgeContent={props.itemCount} color="secondary">
+                <Button component={NavLink} to="/cart" color="inherit">
+                    <ShoppingCartIcon />
+                    Cart
+                </Button>
+            </Badge>
             {links}
         </Grid>
     )
@@ -47,7 +50,8 @@ const MenuItems = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.token.id !== null
+        isAuthenticated: state.auth.token.id !== null,
+        itemCount: state.shopping.cartItems.length
     }
 }
 

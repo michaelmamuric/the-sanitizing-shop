@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, makeStyles, Drawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItems from './MenuItems/MenuItems';
+import MobileMenuItems from './MobileMenuItems/MobileMenuItems';
 import { NavLink } from 'react-router-dom';
 import SideDrawerItems from './Drawer/SideDrawerItems';
 import logo from './logo.png';
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         [theme.breakpoints.down('xs')]: {
             display: 'none'
+        }
+    },
+    // Mobile Menu Items
+    mobileMenuItems: {
+        display: 'none',
+        [theme.breakpoints.down('xs')]: {
+            display: 'flex',
+            justifyContent: 'flex-end'
         }
     }
 }));
@@ -52,6 +61,7 @@ const MenuBar = (props) => {
                         <img src={logo} style={{width: '180px'}} alt="The Sanitizing Shop" />
                     </NavLink>
                     <MenuItems className={classes.menuItems} />
+                    <MobileMenuItems className={classes.mobileMenuItems} />
                 </Toolbar>
             </AppBar>
             <Toolbar />

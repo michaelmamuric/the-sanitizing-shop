@@ -185,7 +185,7 @@ const Billing = (props) => {
     }
 
     return (
-        <>
+        <form onSubmit={submitFormHandler}>
         {
             !formValid ? 
             <>
@@ -196,7 +196,6 @@ const Billing = (props) => {
                 <br />
             </> : null
         }
-        <form onSubmit={submitFormHandler}>
         <Grid container spacing={1}>
         {
             fields.map((input, index) => {
@@ -221,9 +220,9 @@ const Billing = (props) => {
                                 helperText={
                                     validationMethod === 'isRequired' 
                                     ?
-                                        validator.trim(value) === '' && !isValid && touched ? errorMsg : ' '
+                                        validator.trim(value) === '' && !isValid && touched ? errorMsg : null
                                     :
-                                    !isValid && touched ? errorMsg : ' '                                    
+                                    !isValid && touched ? errorMsg : null                                    
                                 }
                                 onChange={(event) => inputChangedHandler(input.name, event.target.value)}
                                 />
@@ -248,7 +247,7 @@ const Billing = (props) => {
                                         ))
                                     }    
                                 </Select>
-                                <FormHelperText>{!isValid && value === '' && touched ? errorMsg : ' '}</FormHelperText>
+                                <FormHelperText>{!isValid && value === '' && touched ? errorMsg : null}</FormHelperText>
                                 </FormControl>
                             </Grid>                            
                         )
@@ -265,7 +264,6 @@ const Billing = (props) => {
             </Grid>
         </Grid>
         </form>
-        </>
     )
 }
 

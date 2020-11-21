@@ -1,29 +1,180 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Alert from '@material-ui/lab/Alert'
 import InputAdornment from '@material-ui/core/InputAdornment';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Alert from '@material-ui/lab/Alert'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import * as actions from '../../../store/actions/index';
 import logo from './visa-mc-logo.png';
+import validator from 'validator';
+import numeral from 'numeral';
+import dayjs from 'dayjs';
 import classes from '../Checkout.module.css';
 
 const Payment = (props) => {
     // Destructure for easier referencing
     const { setActiveStep } = props;
 
+    // States
+    const [fieldValues, setFieldValues] = useState({
+        cardNumber: {
+            value: '',
+            touched: false
+        },
+        cardholderName: {
+            value: '',
+            touched: false          
+        },
+        expiryMM: {
+            value: '',
+            touched: false       
+        },
+        expiryYY: {
+            value: '',
+            touched: false       
+        },
+        securityCode: {
+            value: '',
+            touched: false     
+        }
+    });
+    const [fieldValidity, setFieldValdity] = useState({
+        cardNumber: {
+            isValid: false,             // Setting this to true since a valid value has been initally provided
+            method: 'isCreditCard',    // Built-in from validator library
+            errorMsg: 'Credit Card Number is invalid' 
+        },
+        cardholderName: {
+            isValid: false,
+            method: 'isRequired',      // Custom validation
+            errorMsg: 'Cardholder Name is required'         
+        },
+        expiryMM: {
+            isValid: false,
+            method: '',                // Will be managed independently
+            errorMsg: 'Invalid Month'     
+        },
+        expiryYY: {
+            isValid: false,
+            method: '',                // Will be managed independently
+            errorMsg: 'Invalid Year'     
+        },
+        securityCode: {
+            isValid: false,
+            method: 'isNumeric',      // Built-in from validator
+            errorMsg: 'Code is invalid'   
+        }
+    });
+
+    // Check expiry month and year validity
+    // Managed separately upon clicking Finalize Pay due to complexities :(
+    const checkExpiryValidity = () => {
+        const selectedMonth = fieldValues.expiryMM.value;
+        const selectedYear = fieldValues.expiryYY.value;
+
+        let isValid = false;
+
+        if(dayjs(`${selectedYear}-${selectedMonth}-01`).isAfter(dayjs())) {
+            isValid = true;
+        }
+
+        setFieldValdity({
+            ...fieldValidity,
+            expiryMM: {
+                ...fieldValidity.expiryMM,
+                isValid
+            },
+            expiryYY: {
+                ...fieldValidity.expiryYY,
+                isValid
+            }
+        });
+    }
+
     // Submit Handler
     const paymentSubmitHandler = (event) => {
         event.preventDefault();
+        checkExpiryValidity();
+    }
+
+    // Input Changed Handler
+    const inputChangedHandler = (field, newValue) => {
+        // Validation method
+        const method = fieldValidity[field].method;
+
+        // Update field value
+        setFieldValues({
+            ...fieldValues,
+            [field]: {
+                touched: true,
+                value: newValue
+            }
+        });
+
+        // Field Validity
+        let isValid = false;
+
+        // Determine validation type
+        // Due to the complexities of validating the expiry year and month simultaneously,
+        // validation for the said fields will be managed when Finalize Payment is clicked
+        switch(method) {
+            // Directly from validator library
+            case 'isCreditCard': {
+                if(validator.isCreditCard(newValue)) {
+                    isValid = true;
+                }
+                break;
+            }
+            // Custom validation with help from validator library
+            case 'isRequired': {
+                if(validator.trim(newValue) !== '')
+                    isValid = true;
+                break;
+            }
+            // 
+            case 'isNumeric': {
+                if(validator.isNumeric(newValue)) {
+                    isValid = true;
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        // Update validity
+        setFieldValdity({
+            ...fieldValidity,
+            [field]: {
+                ...fieldValidity[field],
+                isValid
+            }
+        });
+    }
+
+    // Months (to be used for expiry month)
+    let months = [];
+    for(let i=1; i <= 12; i++) {
+        months.push(i);
+    }
+
+    // Years (to be used for expiry years)
+    let years = [];
+    let currentYear = dayjs().format('YYYY');
+    let tenYrsFromNow = dayjs().add(10, 'year').format('YYYY');
+    for(let i = currentYear; i <= tenYrsFromNow; i++) {
+        years.push(i);
     }
 
     return (
         <>
-        { /* Just some information that no credit card payment willbe processed */}
+        { /* Just some information that no credit card payment will be processed */}
         <Alert severity="info" className={classes.FormInfo}>
             This is a demo project. No actual credit card data
             will be stored, and no payment will be processed.
@@ -38,30 +189,99 @@ const Payment = (props) => {
             <Grid item xs={12} className={classes.PaymentGrid}>
                     <TextField className={classes.BillingInput} 
                         variant="outlined"
+                        value={fieldValues.cardNumber.value}
+                        type="number"
+                        error={
+                            fieldValues.cardNumber.touched && !fieldValidity.cardNumber.isValid
+                        }
+                        helperText={
+                            fieldValues.cardNumber.touched && !fieldValidity.cardNumber.isValid
+                            ? fieldValidity.cardNumber.errorMsg : null
+                        }
+                        onChange={(event) => inputChangedHandler('cardNumber', event.target.value)}
                         label="Credit Card Number"
                         InputProps={{
-                            endAdornment: 
-                            <InputAdornment position="end">
-                                <CreditCardIcon />
-                            </InputAdornment>
+                            endAdornment: <InputAdornment position="end"><CreditCardIcon /></InputAdornment>
                         }}
                     /> 
                 </Grid>
                 <Grid item xs={12} sm={7} className={classes.PaymentGrid}>
                     <TextField className={classes.BillingInput} 
                         variant="outlined"
+                        value={fieldValues.cardholderName.value}
+                        error={
+                            fieldValues.cardholderName.touched && !fieldValidity.cardholderName.isValid
+                        }
+                        helperText={
+                            fieldValues.cardholderName.touched && !fieldValidity.cardholderName.isValid
+                            ? fieldValidity.cardholderName.errorMsg : null
+                        }
+                        onChange={(event) => inputChangedHandler('cardholderName', event.target.value)}
                         label="Cardholder Name" 
                     />
                 </Grid>
-                <Grid item xs={12} sm={3} classes={classes.PaymentGrid}>
-                    <TextField variant="outlined" className={classes.PaymentExpiryDate}
-                    label="Expiry (MM)" />
+                <Grid item xs={12} sm={3} className={classes.PaymentGrid}>
+                    <FormControl variant="outlined" className={classes.BillingInput}
+                        error={
+                            fieldValues.expiryMM.touched && !fieldValidity.expiryMM.isValid
+                        }
+                    >
+                        <InputLabel>Expiry (MM)</InputLabel>                    
+                        <Select native value={fieldValues.expiryMM.value} className={classes.PaymentSelect}
+                            onChange={(event) => inputChangedHandler('expiryMM', event.target.value)}
+                        >
+                            <option value=""></option>
+                            {
+                                months.map((month) => {
+                                    return ( 
+                                        <option key={month} value={numeral(month).format('00')}>
+                                            {numeral(month).format('00')}
+                                        </option>
+                                    ) 
+                                })
+                            }  
+                        </Select>
+                        <FormHelperText>
+                            {
+                                fieldValues.expiryMM.touched && !fieldValidity.expiryMM.isValid ?
+                                fieldValidity.expiryMM.errorMsg : null                               
+                            }
+                        </FormHelperText>
+                    </FormControl>
                     &nbsp;
-                    <TextField variant="outlined" className={classes.PaymentExpiryDate}
-                    label="Expiry (YY)" />
+                    <FormControl variant="outlined" className={classes.BillingInput}>
+                        <InputLabel>Expiry (YY)</InputLabel>
+                        <Select native value={fieldValues.expiryYY.value} className={classes.PaymentSelect}
+                            onChange={(event) => inputChangedHandler('expiryYY', event.target.value)}
+                        >
+                            <option value=""></option>
+                            {
+                                years.map((year) => {
+                                    return <option key={year} value={year}>{year}</option> 
+                                })
+                            }  
+                        </Select>
+                        <FormHelperText>
+                            {
+                                fieldValues.expiryYY.touched && !fieldValidity.expiryYY.isValid ?
+                                fieldValidity.expiryYY.errorMsg : null                               
+                            }
+                        </FormHelperText>
+                    </FormControl>
+                    
                 </Grid>
-                <Grid item xs={12} sm={2} classes={classes.PaymentGrid}>
+                <Grid item xs={12} sm={2} className={classes.PaymentGrid}>
                     <TextField variant="outlined" className={classes.BillingInput}
+                    value={fieldValues.securityCode.value}
+                    type="number"
+                    error={
+                        fieldValues.securityCode.touched && !fieldValidity.securityCode.isValid
+                    }
+                    helperText= {
+                        fieldValues.securityCode.touched && !fieldValidity.securityCode.isValid ?
+                        fieldValidity.securityCode.errorMsg : null                               
+                    }
+                    onChange={(event) => inputChangedHandler('securityCode', event.target.value)}
                     label="Security Code" />
                 </Grid>
                 <Grid item xs={12} sm={6} className={classes.BillingGrid}>

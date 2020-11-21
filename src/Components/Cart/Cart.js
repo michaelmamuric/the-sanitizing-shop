@@ -10,7 +10,7 @@ import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
 const Cart = (props) => {
 
     // Destructure for easier referencing
-    const { cartItems, deleteFromCart, hideSnackbar, updateCart } = props;
+    const { cartItems, deleteFromCart, hideSnackbar, updateCart, setHasCheckedOut } = props;
 
     // States
     const [state, setState] = useState(
@@ -22,6 +22,13 @@ const Cart = (props) => {
     useEffect(() => {
         hideSnackbar();
     }, [hideSnackbar]);
+
+    // Set hasCheckedOut to false if user does not have any items in the cart
+    useEffect(() => {
+        if(cartItems.length === 0) {
+            setHasCheckedOut(false);
+        }
+    }, [cartItems.length, setHasCheckedOut]);
 
     // Handler when qty value is changed
     const qtyChangedHandler = (event, index) => {
@@ -44,11 +51,11 @@ const Cart = (props) => {
 
     // Handler when item is removed from cart
     const deleteItemHandler = (index) => {
-        // Delay removal by half a second
+        // Delay removal
         setTimeout(() => {
             deleteFromCart(index);
             window.location.reload();
-        }, 500);
+        }, 100);
     }
 
     return (
@@ -156,7 +163,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         updateCart: (index, newQty) => dispatch(actions.updateCart(index, newQty)),
         deleteFromCart: (index) => dispatch(actions.deleteFromCart(index)),
-        hideSnackbar: () => dispatch(actions.hideSnackbar())
+        hideSnackbar: () => dispatch(actions.hideSnackbar()),
+        setHasCheckedOut: (hasCheckedOut) => dispatch(actions.setHasCheckedOut(hasCheckedOut))
     }
 }
 

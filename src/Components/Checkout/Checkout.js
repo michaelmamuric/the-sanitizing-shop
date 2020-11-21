@@ -11,31 +11,39 @@ import Redirector from '../Redirector/Redirector';
 
 const Checkout = (props) => {
     // Destructure for easier referencing
-    const { steps, activeStep, isAuthenticated } = props;
+    const { steps, activeStep, isAuthenticated, hasCheckedOut } = props;
 
-    // Default component to be rendered
-    let component = (
-        <div className={classes.CheckoutDiv}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-            {
-                steps.map((step, index) => (
-                    <Step key={index}>
-                        <StepLabel>{step}</StepLabel>
-                    </Step>
-                ))
-            }
-            </Stepper>
-            <Card className={classes.CheckoutCard}>
-            {
-                activeStep === 0 ? <Billing /> : <Payment /> 
-            }
-            </Card>
-        </div>
-    );
+    let component = null;
 
     // Redirect user to homepage if not authenticated
     if(!isAuthenticated) {
         component = <Redirector location="/" />;
+    }
+    else {
+        // If user is authenticated, but has not checked out yet, redirect user
+        if(!hasCheckedOut) {
+            component = <Redirector location="/cart" />;
+        }
+        else {
+            component = (
+                <div className={classes.CheckoutDiv}>
+                    <Stepper activeStep={activeStep} alternativeLabel>
+                    {
+                        steps.map((step, index) => (
+                            <Step key={index}>
+                                <StepLabel>{step}</StepLabel>
+                            </Step>
+                        ))
+                    }
+                    </Stepper>
+                    <Card className={classes.CheckoutCard}>
+                    {
+                        activeStep === 0 ? <Billing /> : <Payment /> 
+                    }
+                    </Card>
+                </div>
+            );
+        }
     }
 
     return component;
@@ -44,6 +52,7 @@ const Checkout = (props) => {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token.id !== null,
+        hasCheckedOut: state.shopping.hasCheckedOut,
         steps: state.checkout.steps,
         activeStep: state.checkout.activeStep
     }
