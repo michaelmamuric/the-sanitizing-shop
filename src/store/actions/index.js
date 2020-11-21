@@ -18,7 +18,8 @@ export {
     loginUser,
     setLoading,
     checkAuthState,
-    logoutUser
+    logoutUser,
+    setError
 } from './authActions';
 
 export {

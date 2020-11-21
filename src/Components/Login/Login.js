@@ -13,7 +13,7 @@ const Login = (props) => {
 
     // Destructure for easier referencing
     // props.history is accessible as Login is a child of App component where react-router-dom was used
-    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, loginError, history } = props;
+    const { isAuthenticated, hasCheckedOut, loginUser, isLoading, loginError, history, clearError } = props;
 
     // States
     const [email, setEmail] = useState('');
@@ -33,7 +33,7 @@ const Login = (props) => {
             else
                 history.push('/');          // Redirect to Homepage
         }
-    }, [isAuthenticated, hasCheckedOut, history])
+    }, [isAuthenticated, hasCheckedOut, history]);
 
     useEffect(() => {
         // Reset fields if authentication fails
@@ -41,7 +41,12 @@ const Login = (props) => {
             setEmail('');
             setPassword('');
         }
-    }, [loginError])
+    }, [loginError]);
+
+    // componentWillUnmount-like functionality
+    useEffect(() => {
+        clearError();
+    }, [clearError]);
 
     // Alert Message
     let alert = null;
@@ -103,7 +108,7 @@ const Login = (props) => {
                         loginError !== null
                         ?
                         <Alert severity="error">
-                            Invalid e-mail and password combination.
+                            {loginError}
                         </Alert> 
                         : null
                     }
@@ -126,7 +131,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginUser: (email, password) => dispatch(actions.loginUser(email, password))
+        loginUser: (email, password) => dispatch(actions.loginUser(email, password)),
+        clearError: () => dispatch(actions.setError(null))
     }
 }
 

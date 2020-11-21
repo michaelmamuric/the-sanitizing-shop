@@ -41,7 +41,9 @@ const ProductDialog = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={5} className={classes.Product}>
                         <DialogActions className={classes.DialogAct}> 
-                            <TextField label="Quantity" type="number" size="small" value={productQty} 
+                            <TextField label="Quantity" type="number" size="small" value={productQty}
+                                variant="outlined"
+                                error={+productQty === 0}  
                                 onChange={(event) => setProductQty(event.target.value) }
                                 InputProps={{
                                     inputProps: {

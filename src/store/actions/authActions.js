@@ -101,8 +101,28 @@ export const loginUser = (email, password) => {
             // Set Loading to false nonetheless
             dispatch(setLoading(false));
 
+            // Error Message obtained from Firebase backend
+            const errorMsg = error.response.data.error.message;
+            let displayMsg = '';
+
+            switch(errorMsg) {
+                case 'INVALID_EMAIL': case 'INVALID_PASSWORD' : {
+                    displayMsg = 'Invalid e-mail and password combination.';
+                    break;
+                }
+                case 'USER_DISABLED': {
+                    displayMsg = 'Your account has been disabled. Please contact the website owner.';
+                    break;
+                }
+                // Could be because user has attempted to login too many times
+                default: {
+                    displayMsg = 'A technical error has occurred. You may had too many attempts. Please try again later.';
+                    break;
+                }                
+            }
+
             // Invalid Login
-            dispatch(setError(error.response.data));
+            dispatch(setError(displayMsg));
         }
     }
 }

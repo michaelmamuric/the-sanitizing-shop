@@ -32,6 +32,7 @@ const Cart = (props) => {
 
     // Handler when qty value is changed
     const qtyChangedHandler = (event, index) => {
+        // Convert String to Number
         const newQty = +event.target.value;
 
         setState({
@@ -44,6 +45,22 @@ const Cart = (props) => {
 
         // Maybe improve this one - only trigger after user stops typing?
         updateCart(index, newQty);
+    }
+
+    // Handler when user clicks Checkout
+    const checkoutHandler = () => {
+        let invalidCount = 0;
+
+        // Check if any item quantities are 0
+        for(let i = 0;  i < cartItems.length; i++) {
+            if(state[i].qty === 0)
+                invalidCount++;
+        }
+
+        // If all quantities are good, display confirm dialog
+        if(invalidCount === 0) {
+            setConfirmDialog(true);
+        }
     }
 
     // Cart Total (decided to use this instead of reduce method to avoid going thru all cartItems' elements again)
@@ -91,7 +108,9 @@ const Cart = (props) => {
                                 </Grid>
                                 <Grid className={classes.QtyGrid} item xs={3} sm={2}>
                                     <TextField className={classes.QtyField} type="number" size="small"
+                                        variant="outlined"
                                         value={state[index].qty}
+                                        error={state[index].qty === 0}
                                         InputProps={{
                                             inputProps: {
                                                 min: 1,
@@ -144,7 +163,7 @@ const Cart = (props) => {
             ?
             <Grid container style={{ margin: 'auto', width: '90%'}}>
                 <Grid className={classes.CheckoutGrid} item xs={12}>
-                    <Button variant="contained" color="primary" onClick={() => setConfirmDialog(true)}>Checkout &#8594;</Button>
+                    <Button variant="contained" color="primary" onClick={checkoutHandler}>Checkout &#8594;</Button>
                 </Grid>
             </Grid>
             : null
