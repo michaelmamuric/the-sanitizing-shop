@@ -22,9 +22,11 @@ const Payment = (props) => {
     const { setActiveStep } = props;
 
     // States
+    // Decided to manage field values andvalidations here rather in Redux, since
+    // we do not want to persist credit card values
     const [fieldValues, setFieldValues] = useState({
         cardNumber: {
-            value: '',
+            value: '4242424242424242',  // A valid dummy credit card number
             touched: false
         },
         cardholderName: {
@@ -46,7 +48,7 @@ const Payment = (props) => {
     });
     const [fieldValidity, setFieldValdity] = useState({
         cardNumber: {
-            isValid: false,             // Setting this to true since a valid value has been initally provided
+            isValid: true,             // Setting this to true since a valid value has been initally provided
             method: 'isCreditCard',    // Built-in from validator library
             errorMsg: 'Credit Card Number is invalid' 
         },
@@ -172,6 +174,8 @@ const Payment = (props) => {
         years.push(i);
     }
 
+    // Unlike in the Billing component where all the input types' grids are equally sized, each input type
+    // here in the Payment component have different grid sizes, so they are all managed manually
     return (
         <>
         { /* Just some information that no credit card payment will be processed */}
@@ -223,7 +227,8 @@ const Payment = (props) => {
                 <Grid item xs={12} sm={3} className={classes.PaymentGrid}>
                     <FormControl variant="outlined" className={classes.BillingInput}
                         error={
-                            fieldValues.expiryMM.touched && !fieldValidity.expiryMM.isValid
+                            fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
+                            !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid
                         }
                     >
                         <InputLabel>Expiry (MM)</InputLabel>                    
@@ -243,13 +248,18 @@ const Payment = (props) => {
                         </Select>
                         <FormHelperText>
                             {
-                                fieldValues.expiryMM.touched && !fieldValidity.expiryMM.isValid ?
-                                fieldValidity.expiryMM.errorMsg : null                               
+                                fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
+                                !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid 
+                                ? fieldValidity.expiryMM.errorMsg : null                               
                             }
                         </FormHelperText>
                     </FormControl>
                     &nbsp;
-                    <FormControl variant="outlined" className={classes.BillingInput}>
+                    <FormControl variant="outlined" className={classes.BillingInput}
+                        error={
+                            fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
+                            !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid
+                        }>
                         <InputLabel>Expiry (YY)</InputLabel>
                         <Select native value={fieldValues.expiryYY.value} className={classes.PaymentSelect}
                             onChange={(event) => inputChangedHandler('expiryYY', event.target.value)}
@@ -263,8 +273,9 @@ const Payment = (props) => {
                         </Select>
                         <FormHelperText>
                             {
-                                fieldValues.expiryYY.touched && !fieldValidity.expiryYY.isValid ?
-                                fieldValidity.expiryYY.errorMsg : null                               
+                                fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
+                                !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid 
+                                ? fieldValidity.expiryYY.errorMsg : null                               
                             }
                         </FormHelperText>
                     </FormControl>
