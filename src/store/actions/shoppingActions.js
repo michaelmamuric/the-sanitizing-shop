@@ -29,3 +29,9 @@ export const setHasCheckedOut = (hasCheckedOut) => {
         hasCheckedOut
     }
 }
+
+export const clearCart = () => {
+    return {
+        type: actionTypes.CLEAR_CART
+    }
+}

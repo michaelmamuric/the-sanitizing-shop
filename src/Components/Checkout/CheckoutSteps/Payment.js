@@ -15,6 +15,7 @@ import logo from './visa-mc-logo.png';
 import validator from 'validator';
 import numeral from 'numeral';
 import dayjs from 'dayjs';
+import CheckoutDialog from '../CheckoutDialog/CheckoutDialog';
 import classes from '../Checkout.module.css';
 
 const Payment = (props) => {
@@ -22,7 +23,7 @@ const Payment = (props) => {
     const { setActiveStep } = props;
 
     // States
-    // Decided to manage field values andvalidations here rather in Redux, since
+    // Decided to manage field values and validations here rather in Redux, since
     // we do not want to persist credit card values
     const [fieldValues, setFieldValues] = useState({
         cardNumber: {
@@ -69,10 +70,11 @@ const Payment = (props) => {
         },
         securityCode: {
             isValid: false,
-            method: 'isNumeric',      // Built-in from validator
+            method: 'isNumeric',       // Built-in from validator
             errorMsg: 'Code is invalid'   
         }
     });
+    const [displayDialog, setDisplayDialog] = useState(false);
 
     // Check expiry month and year validity
     // Managed separately upon clicking Finalize Pay due to complexities :(
@@ -102,7 +104,17 @@ const Payment = (props) => {
     // Submit Handler
     const paymentSubmitHandler = (event) => {
         event.preventDefault();
-        checkExpiryValidity();
+
+        let invalidCount = 0;
+
+        // Check for each field's validity
+        for(let key in fieldValidity) {
+            if(!fieldValidity[key].isValid)
+                invalidCount++;
+        }
+
+        if(invalidCount === 0)
+            setDisplayDialog(true);
     }
 
     // Input Changed Handler
@@ -139,7 +151,7 @@ const Payment = (props) => {
                     isValid = true;
                 break;
             }
-            // 
+            // Directly from validator library
             case 'isNumeric': {
                 if(validator.isNumeric(newValue)) {
                     isValid = true;
@@ -158,6 +170,7 @@ const Payment = (props) => {
                 isValid
             }
         });
+        
     }
 
     // Months (to be used for expiry month)
@@ -188,6 +201,7 @@ const Payment = (props) => {
               <img src={logo} className={classes.PaymentLogo} alt="Logo" />
             </Grid>
         </Grid>
+        <CheckoutDialog open={displayDialog} onClose={() => setDisplayDialog(false)} />
         <form onSubmit={paymentSubmitHandler}>
             <Grid container spacing={1}>
             <Grid item xs={12} className={classes.PaymentGrid}>
@@ -233,6 +247,7 @@ const Payment = (props) => {
                     >
                         <InputLabel>Expiry (MM)</InputLabel>                    
                         <Select native value={fieldValues.expiryMM.value} className={classes.PaymentSelect}
+                            onClick={checkExpiryValidity} onFocus={checkExpiryValidity}                           
                             onChange={(event) => inputChangedHandler('expiryMM', event.target.value)}
                         >
                             <option value=""></option>
@@ -262,6 +277,7 @@ const Payment = (props) => {
                         }>
                         <InputLabel>Expiry (YY)</InputLabel>
                         <Select native value={fieldValues.expiryYY.value} className={classes.PaymentSelect}
+                            onClick={checkExpiryValidity} onFocus={checkExpiryValidity}
                             onChange={(event) => inputChangedHandler('expiryYY', event.target.value)}
                         >
                             <option value=""></option>
@@ -297,7 +313,7 @@ const Payment = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={6} className={classes.BillingGrid}>
                     <Button variant="contained" color="primary" className={classes.PaymentBtns}
-                        onClick={() => setActiveStep(0)} type="submit"
+                        onClick={() => setActiveStep(0)}
                     >
                         &#8592;	Back to Billing Details
                     </Button>

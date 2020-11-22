@@ -22,3 +22,23 @@ export const setValidity = (field, validity) => {
         validity
     }
 }
+
+export const setPurchased = (purchased) => {
+    return {
+        type: actionTypes.SET_PURCHASED,
+        purchased
+    }
+}
+
+export const setPaymentStatus = (paymentSuccess) => {
+    return {
+        type: actionTypes.SET_PAYMENT_STATUS,
+        paymentSuccess
+    }
+}
+
+export const clearBillingFields = () => {
+    return {
+        type: actionTypes.CLEAR_BILLING_FIELDS
+    }
+}

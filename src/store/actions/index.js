@@ -12,6 +12,7 @@ export {
     updateCart,
     deleteFromCart,
     setHasCheckedOut,
+    clearCart
 } from './shoppingActions'
 
 export {
@@ -25,5 +26,8 @@ export {
 export {
     setActiveStep,
     updateBillingField,
-    setValidity
+    setValidity,
+    setPaymentStatus,
+    setPurchased,
+    clearBillingFields
 } from './checkoutActions'

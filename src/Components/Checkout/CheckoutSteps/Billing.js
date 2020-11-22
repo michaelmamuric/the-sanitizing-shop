@@ -185,18 +185,17 @@ const Billing = (props) => {
     }
 
     return (
-        <form onSubmit={submitFormHandler}>
+        <Grid container spacing={1}>
         {
             !formValid ? 
-            <>
+            <Grid item xs={12}>
                 <Alert severity="error" className={classes.FormError}>
                     One or more fields have errors. Please fill in all the fields, 
                     and make sure to follow the correct format.
                 </Alert>
                 <br />
-            </> : null
+            </Grid> : null
         }
-        <Grid container spacing={1}>
         {
             fields.map((input, index) => {
                 const value = billingFields[input.name].value;      // Value is managed in Redux
@@ -258,12 +257,12 @@ const Billing = (props) => {
             })
         }
             <Grid item xs={12} className={classes.BillingGrid}>
-                <Button variant="contained" type="submit" color="primary" className={classes.PaymentBtns}>
+                <Button variant="contained" color="primary" className={classes.PaymentBtns}
+                    onClick={submitFormHandler}>
                     Proceed to Payment &#8594;
                 </Button>
             </Grid>
         </Grid>
-        </form>
     )
 }
 

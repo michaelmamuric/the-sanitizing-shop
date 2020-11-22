@@ -1,0 +1,10 @@
+.DialogTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Backdrop {
+    z-index: 1201; /* Must be above the Drawer z-index: https://material-ui.com/customization/z-index/*/
+    color:#fff;
+}

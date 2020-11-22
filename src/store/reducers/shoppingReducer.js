@@ -45,6 +45,12 @@ const reducer = (state = initialState, action) => {
                 hasCheckedOut: action.hasCheckedOut
             }
         }
+        case actionTypes.CLEAR_CART: {
+            return {
+                ...state,
+                cartItems: [] // set to an empty array
+            }
+        }
         default: {
             return state;
         }

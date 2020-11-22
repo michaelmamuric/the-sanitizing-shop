@@ -6,6 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Billing from './CheckoutSteps/Billing';
 import Payment from './CheckoutSteps/Payment';
+import CheckoutDone from './CheckoutSteps/CheckoutDone';
 import classes from './Checkout.module.css'
 import Redirector from '../Redirector/Redirector';
 
@@ -25,7 +26,26 @@ const Checkout = (props) => {
             component = <Redirector location="/cart" />;
         }
         else {
+            let currentStep = null;
+
+            switch(activeStep) {
+                case 0: {
+                    currentStep = <Billing />;
+                    break;
+                }
+                case 1: {
+                    currentStep = <Payment />;
+                    break;
+                }
+                case 2: {
+                    currentStep = <CheckoutDone />;
+                    break;
+                }
+                default: break;
+            }
+
             component = (
+                <>
                 <div className={classes.CheckoutDiv}>
                     <Stepper activeStep={activeStep} alternativeLabel>
                     {
@@ -37,11 +57,10 @@ const Checkout = (props) => {
                     }
                     </Stepper>
                     <Card className={classes.CheckoutCard}>
-                    {
-                        activeStep === 0 ? <Billing /> : <Payment /> 
-                    }
+                        {currentStep}
                     </Card>
                 </div>
+                </>
             );
         }
     }
