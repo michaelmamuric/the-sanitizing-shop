@@ -3,15 +3,16 @@
     width: 80%;
 }
 
-.CheckoutCard {
+.CheckoutCard, .CheckoutDoneMsg {
     padding: 10px
 }
 
-.BillingGrid, .FormError, .FormInfo {
+.BillingGrid, .FormError, .FormInfo, .CheckoutDoneMsg  {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 
 .PaymentGrid {
     display: flex;
@@ -32,12 +33,11 @@
 }
 
 .SuccessIcon, .ErrorIcon {
-    color: darkgreen;
-    font-size: 60pt;
+    color: #004c00;
 }
 
 .ErrorIcon {
-    color: darkred;
+    color: #cc0000;
 }
 
 @media only screen and (min-width: 600px) {

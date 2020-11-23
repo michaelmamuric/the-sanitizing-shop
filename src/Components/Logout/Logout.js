@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
@@ -7,15 +8,14 @@ const Logout = (props) => {
 
     useEffect(() => {
         logout();
-    }, [logout])
+    }, [logout]);
 
     return (
-        <div>
-            Thank you for visiting!
-        </div>
+        <Typography>
+            Thank you for visiting! We hope that you enjoyed your shopping experience.
+        </Typography>        
     );
 }
-
 
 const mapDispatchToProps = (dispatch) => {
     return {

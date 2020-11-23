@@ -28,6 +28,7 @@ const Checkout = (props) => {
         else {
             let currentStep = null;
 
+            // Display component depending on the activeStep
             switch(activeStep) {
                 case 0: {
                     currentStep = <Billing />;

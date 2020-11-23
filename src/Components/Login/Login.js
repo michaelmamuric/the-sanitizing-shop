@@ -45,7 +45,7 @@ const Login = (props) => {
 
     // componentWillUnmount-like functionality
     useEffect(() => {
-        clearError();
+        return () => clearError();
     }, [clearError]);
 
     // Alert Message

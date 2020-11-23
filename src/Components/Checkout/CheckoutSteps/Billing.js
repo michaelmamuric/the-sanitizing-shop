@@ -219,9 +219,9 @@ const Billing = (props) => {
                                 helperText={
                                     validationMethod === 'isRequired' 
                                     ?
-                                        validator.trim(value) === '' && !isValid && touched ? errorMsg : null
+                                        validator.trim(value) === '' && !isValid && touched ? errorMsg : ' '
                                     :
-                                    !isValid && touched ? errorMsg : null                                    
+                                    !isValid && touched ? errorMsg : ' '                                    
                                 }
                                 onChange={(event) => inputChangedHandler(input.name, event.target.value)}
                                 />
@@ -246,7 +246,7 @@ const Billing = (props) => {
                                         ))
                                     }    
                                 </Select>
-                                <FormHelperText>{!isValid && value === '' && touched ? errorMsg : null}</FormHelperText>
+                                <FormHelperText>{!isValid && value === '' && touched ? errorMsg : ' '}</FormHelperText>
                                 </FormControl>
                             </Grid>                            
                         )

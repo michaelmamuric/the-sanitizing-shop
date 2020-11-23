@@ -170,7 +170,6 @@ const Payment = (props) => {
                 isValid
             }
         });
-        
     }
 
     // Months (to be used for expiry month)
@@ -214,7 +213,7 @@ const Payment = (props) => {
                         }
                         helperText={
                             fieldValues.cardNumber.touched && !fieldValidity.cardNumber.isValid
-                            ? fieldValidity.cardNumber.errorMsg : null
+                            ? fieldValidity.cardNumber.errorMsg : ' '
                         }
                         onChange={(event) => inputChangedHandler('cardNumber', event.target.value)}
                         label="Credit Card Number"
@@ -232,7 +231,7 @@ const Payment = (props) => {
                         }
                         helperText={
                             fieldValues.cardholderName.touched && !fieldValidity.cardholderName.isValid
-                            ? fieldValidity.cardholderName.errorMsg : null
+                            ? fieldValidity.cardholderName.errorMsg : ' '
                         }
                         onChange={(event) => inputChangedHandler('cardholderName', event.target.value)}
                         label="Cardholder Name" 
@@ -247,7 +246,7 @@ const Payment = (props) => {
                     >
                         <InputLabel>Expiry (MM)</InputLabel>                    
                         <Select native value={fieldValues.expiryMM.value} className={classes.PaymentSelect}
-                            onClick={checkExpiryValidity} onFocus={checkExpiryValidity}                           
+                            onClick={checkExpiryValidity} onFocusIn={checkExpiryValidity}                          
                             onChange={(event) => inputChangedHandler('expiryMM', event.target.value)}
                         >
                             <option value=""></option>
@@ -265,7 +264,7 @@ const Payment = (props) => {
                             {
                                 fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
                                 !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid 
-                                ? fieldValidity.expiryMM.errorMsg : null                               
+                                ? fieldValidity.expiryMM.errorMsg : ' '                               
                             }
                         </FormHelperText>
                     </FormControl>
@@ -277,7 +276,7 @@ const Payment = (props) => {
                         }>
                         <InputLabel>Expiry (YY)</InputLabel>
                         <Select native value={fieldValues.expiryYY.value} className={classes.PaymentSelect}
-                            onClick={checkExpiryValidity} onFocus={checkExpiryValidity}
+                            onClick={checkExpiryValidity} onFocusIn={checkExpiryValidity}
                             onChange={(event) => inputChangedHandler('expiryYY', event.target.value)}
                         >
                             <option value=""></option>
@@ -291,7 +290,7 @@ const Payment = (props) => {
                             {
                                 fieldValues.expiryMM.touched && fieldValues.expiryYY.touched &&
                                 !fieldValidity.expiryMM.isValid && !fieldValidity.expiryYY.isValid 
-                                ? fieldValidity.expiryYY.errorMsg : null                               
+                                ? fieldValidity.expiryYY.errorMsg : ' '                               
                             }
                         </FormHelperText>
                     </FormControl>
@@ -306,7 +305,7 @@ const Payment = (props) => {
                     }
                     helperText= {
                         fieldValues.securityCode.touched && !fieldValidity.securityCode.isValid ?
-                        fieldValidity.securityCode.errorMsg : null                               
+                        fieldValidity.securityCode.errorMsg : ' '                               
                     }
                     onChange={(event) => inputChangedHandler('securityCode', event.target.value)}
                     label="Security Code" />

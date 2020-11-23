@@ -44,12 +44,19 @@ const Orders = (props) => {
                     <Typography variant="h6">My Orders</Typography>
                     <Grid container className={classes.OrderGrid}>
                     {
+                        orderList.length === 0
+                        ?
+                        <Grid item xs={12}>
+                            <br />
+                            <Typography>You have not placed any orders yet. Start shopping today!</Typography>
+                        </Grid>
+                        :
                         orderList.map((order, index) => {
                             // To be used to compute total price
                             let totalPrice = 0;
 
                             return (
-                                <Grid item key={index} style={{margin: '15px 15px 0px 0px', width: '100%'}}>
+                                <Grid item xs={12} key={index} style={{margin: '15px 15px 0px 0px', width: '100%'}}>
                                 <Accordion>
                                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                         <Typography style={{fontWeight: 'bold'}}>{`Order # ${index + 1}`}</Typography>
