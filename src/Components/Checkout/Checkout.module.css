@@ -13,7 +13,6 @@
     justify-content: center;
 }
 
-
 .PaymentGrid {
     display: flex;
     align-items: center;
@@ -38,6 +37,12 @@
 
 .ErrorIcon {
     color: #cc0000;
+}
+
+.List {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 @media only screen and (min-width: 600px) {

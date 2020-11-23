@@ -192,8 +192,12 @@ const Payment = (props) => {
         <>
         { /* Just some information that no credit card payment will be processed */}
         <Alert severity="info" className={classes.FormInfo}>
-            This is a demo project. No actual credit card data
-            will be stored, and no payment will be processed.
+            This is a demo project. No actual credit card data will be stored, and no payment will be processed. Please use the following for testing:
+            <ul className={classes.List}>
+                <li>Credit Card Number: 4242424242424242</li>
+                <li>Expiry Date: Any date in the future</li>
+                <li>Security Code: Any valid number</li>
+            </ul>
         </Alert>
         <Grid container spacing={1}>
             <Grid item xs={12} className={classes.BillingGrid}>
