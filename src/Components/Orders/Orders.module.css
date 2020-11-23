@@ -1,0 +1,28 @@
+.Card {
+    width: 90%;
+    margin: auto;
+}
+
+.OrderGrid {
+    width: 100%;
+}
+
+.LoadingSpinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FillerGrid {
+    display: block;
+}
+
+.Bold {
+    font-weight: bold
+}
+
+@media only screen and (min-width: 600px) {
+    .FillerGrid {
+        display: none
+    }
+}

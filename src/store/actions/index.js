@@ -1,11 +1,12 @@
 export {
     fetchProducts,
+    fetchOrders,
     initializeProducts,
     showDialog,
     hideDialog,
     showSnackbar,
     hideSnackbar
-} from './productActions'
+} from './productOrderActions'
 
 export {
     addToCart,

@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     productList: [],
+    orderList: [],
     error: null,
     isDialogDisplayed: false,
     isSnackbarDisplayed: false,
@@ -13,7 +14,13 @@ const reducer = (state = initialState, action) => {
         case actionTypes.INITIALIZE_PRODUCTS: {
             return {
                 ...state,
-                productList: state.productList.concat(action.productList)
+                productList: action.productList
+            }
+        }
+        case actionTypes.INITIALIZE_ORDERS: {
+            return {
+                ...state,
+                orderList: action.orderList
             }
         }
         case actionTypes.SET_ERROR: {

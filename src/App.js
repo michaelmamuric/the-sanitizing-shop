@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MenuBar from './Components/MenuBar/MenuBar';
@@ -8,6 +7,7 @@ import Orders from './Components/Orders/Orders';
 import Login from './Components/Login/Login';
 import Checkout from './Components/Checkout/Checkout';
 import Logout from './Components/Logout/Logout';
+import Footer from './Components/Footer/Footer';
 import { Switch, Route } from 'react-router-dom';
 import * as actions from './store/actions/index';
 import { connect } from 'react-redux';
@@ -37,6 +37,9 @@ const App = (props) => {
             <Route path="/logout" component={Logout} />
             <Route path="/checkout" component={Checkout} />
           </Switch>
+        </Grid>
+        <Grid item xs={12}>
+          <Footer />
         </Grid>
       </Grid>
   );

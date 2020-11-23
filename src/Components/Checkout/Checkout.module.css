@@ -31,6 +31,15 @@
     width: 40%;
 }
 
+.SuccessIcon, .ErrorIcon {
+    color: darkgreen;
+    font-size: 60pt;
+}
+
+.ErrorIcon {
+    color: darkred;
+}
+
 @media only screen and (min-width: 600px) {
     .PaymentLogo {
         width: 15%;

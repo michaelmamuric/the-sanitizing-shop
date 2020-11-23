@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import productReducer from './store/reducers/productReducer';
+import productOrderReducer from './store/reducers/productOrderReducer';
 import shoppingReducer from './store/reducers/shoppingReducer';
 import authReducer from './store/reducers/authReducer';
 import checkoutReducer from './store/reducers/checkoutReducer';
@@ -20,7 +20,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Combine the reducers to be used
 const mainReducer = combineReducers({
-  product: productReducer,
+  product: productOrderReducer,
   shopping: shoppingReducer,
   auth: authReducer,
   checkout: checkoutReducer

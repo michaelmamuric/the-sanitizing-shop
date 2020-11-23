@@ -1,6 +1,6 @@
 import * as actionTypes from './actions';
 import axios from 'axios';
-import { backendURL } from '../../secrets/secrets';
+import { backendURL, getOrdersByUserURL } from '../../secrets/secrets';
 
 export const setError = (error) => {
     return {
@@ -46,6 +46,13 @@ export const initializeProducts = (productList) => {
     }
 }
 
+export const initializeOrders = (orderList) => {
+    return {
+        type: actionTypes.INITIALIZE_ORDERS,
+        orderList
+    }
+}
+
 export const setLoadingProducts = (isLoading) => {
     return {
         type: actionTypes.SET_LOADING_PRODUCTS,
@@ -69,6 +76,28 @@ export const fetchProducts = () => {
         } catch(error) {
             // Set Loading to false nonetheless
             dispatch(setLoadingProducts(false));
+            dispatch(setError(error.message));
+        }
+    }
+}
+
+export const fetchOrders = (userId) => {
+    return async(dispatch) => {
+        try {
+            // Set Loading to true
+            dispatch(setLoadingProducts(true));
+
+            const response = await axios.get(getOrdersByUserURL + userId);
+    
+            // Set Loading to false once response is obtained
+            dispatch(setLoadingProducts(false));
+            
+            // Initialize products
+            dispatch(initializeOrders(response.data));
+        } catch(error) {
+            // Set Loading to false nonetheless
+            dispatch(setLoadingProducts(false));
+            // Set Loading to false nonetheless
             dispatch(setError(error.message));
         }
     }
