@@ -1,6 +1,5 @@
 import * as actionTypes from './actions';
 import axios from 'axios';
-import { backendURL, getOrdersByUserURL } from '../../secrets/secrets';
 
 export const setError = (error) => {
     return {
@@ -66,7 +65,7 @@ export const fetchProducts = () => {
             // Set Loading to true
             dispatch(setLoadingProducts(true));
             
-            const response = await axios.get(backendURL);
+            const response = await axios.get(process.env.REACT_APP_BACKEND_URL);
             
             // Set Loading to false once response is obtained
             dispatch(setLoadingProducts(false));
@@ -87,7 +86,7 @@ export const fetchOrders = (userId) => {
             // Set Loading to true
             dispatch(setLoadingProducts(true));
 
-            const response = await axios.get(getOrdersByUserURL + userId);
+            const response = await axios.get(process.env.REACT_APP_GET_ORDERS_BY_USER_URL + userId);
     
             // Set Loading to false once response is obtained
             dispatch(setLoadingProducts(false));

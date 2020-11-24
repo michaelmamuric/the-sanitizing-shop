@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as actionTypes from './actions';
-import { authURL, getUserDataURL } from '../../secrets/secrets';
 
 export const setLoading = (isLoading) => {
     return {
@@ -46,7 +45,7 @@ export const checkAuthState = (token) => {
         else {
             try {
                 // Send request to Firebase to verify token validity
-                const response = await axios.post(getUserDataURL, { idToken: token.id});
+                const response = await axios.post(process.env.REACT_APP_GET_USER_DATA_URL, { idToken: token.id});
 
                 // localId in token matches what is stored in Firebase's server
                 // Response data format: https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
@@ -81,7 +80,7 @@ export const loginUser = (email, password) => {
             }
 
             // Send request to Firebase
-            const response = await axios.post(authURL, userCredentials);
+            const response = await axios.post(process.env.REACT_APP_AUTH_URL, userCredentials);
 
             // Set Loading to false once response is obtained
             dispatch(setLoading(false));

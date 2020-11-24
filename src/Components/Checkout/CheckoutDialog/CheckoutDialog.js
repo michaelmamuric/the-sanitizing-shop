@@ -13,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import classes from './CheckoutDialog.module.css';
 import axios from 'axios';
 import * as actions from '../../../store/actions/index';
-import { getOrdersURL } from '../../../secrets/secrets';
 
 const CheckoutDialog = (props) => {
     // Destructure for easier referencing 
@@ -64,7 +63,7 @@ const CheckoutDialog = (props) => {
             };
 
             // Send Post Request to backend URL
-            await axios.post(getOrdersURL, orderData);
+            await axios.post(process.env.REACT_APP_GET_ORDERS_URL, orderData);
         } catch(error) {
             paymentSuccess = false;
         }
