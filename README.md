@@ -24,7 +24,7 @@ To test the app, please use the following credentials:
 * Password: Testp@ss
 
 ### Credit Card Payment
-This app features a credit card payment page. **Please note that no credit card payment will actually be processed, nor any credit card will be stored in the server**.
+This app features a credit card payment page. **Please note that no credit card payment will actually be processed, nor any credit card data will be stored in the server**.
 Please enter the following credit card details when prompted:
 * Card Number: 4242424242424242
 * Expiry Date: Any date in the future
