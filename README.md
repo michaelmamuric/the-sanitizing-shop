@@ -7,10 +7,10 @@ It is deployed on Heroku, at https://the-sanitizing-shop.herokuapp.com/.
 The corresponding backend of the app is also hosted on Heroku. Its corresponding Github repository can be found here: https://github.com/michaelmamuric/the-sanitizing-shop-backend
 
 Some of the technologies and websites I used for this project:
-* [Redux](https://redux.js.org/) for state management.
-* [Redux Persist](https://www.npmjs.com/package/redux-persist) to persist Redux state in local storage.
-* [Firebase](https://firebase.google.com/) for user authentication.
-* [Material UI](https://material-ui.com/) to easily create React UI components.
+* [Redux](https://redux.js.org/) for state management
+* [Redux Persist](https://www.npmjs.com/package/redux-persist) to persist Redux state in local storage
+* [Firebase](https://firebase.google.com/) for user authentication
+* [Material UI](https://material-ui.com/) to easily create React UI components
 * [Free Logo Design](https://www.freelogodesign.org/) to design the logo of my "own shop"
 * [Day.js](https://day.js.org/) for dates formatting
 * [Numeral.js](http://numeraljs.com/) for number formatting
@@ -23,7 +23,10 @@ To test the app, please use the following credentials:
 * E-mail address: test@test.com
 * Password: Testp@ss
 
-### Credit Card Payment
+### Billing/Shipping Address Details
+The only requirement is for all fields to be filled, and a [valid Canadian postal code](https://postal-codes.net/canada) to be provided. The postal code can either have a space or no space in between, so both A1B2C3 and A1B 2C3 are accepted, for example.
+
+### Credit Card Payment Details
 This app features a credit card payment page. **Please note that no credit card payment will actually be processed, nor any credit card data will be stored in the server**.
 Please enter the following credit card details when prompted:
 * Card Number: 4242424242424242
