@@ -15,7 +15,7 @@ const ProductDialog = (props) => {
 
     // Handles Add to Cart action
     const addToCartHandler = (productId, qty) => {
-        if(+qty >= 1) {
+        if(+qty >= 1 && Number.isInteger(+qty)) {
             addToCart(productId, +qty);
             hideDialog();
             setProductQty(1);

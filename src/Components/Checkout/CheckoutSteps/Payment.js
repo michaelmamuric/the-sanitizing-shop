@@ -153,7 +153,7 @@ const Payment = (props) => {
             }
             // Directly from validator library
             case 'isNumeric': {
-                if(validator.isNumeric(newValue)) {
+                if(validator.isNumeric(newValue) && Number.isInteger(newValue)) {
                     isValid = true;
                 }
                 break;

@@ -51,9 +51,11 @@ const Cart = (props) => {
     const checkoutHandler = () => {
         let invalidCount = 0;
 
-        // Check if any item quantities are 0
+        // Check if any item quantities are less than 1
         for(let i = 0;  i < cartItems.length; i++) {
-            if(state[i].qty === 0)
+            const qty = state[i].qty;
+
+            if(qty < 1 && Number.isInteger(qty))
                 invalidCount++;
         }
 
