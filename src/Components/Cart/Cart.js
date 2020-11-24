@@ -112,7 +112,7 @@ const Cart = (props) => {
                                     <TextField className={classes.QtyField} type="number" size="small"
                                         variant="outlined"
                                         value={state[index].qty}
-                                        error={state[index].qty < 0 || !Number.isInteger(state[index].qty)}
+                                        error={state[index].qty < 1 || !Number.isInteger(state[index].qty)}
                                         InputProps={{
                                             inputProps: {
                                                 min: 1,

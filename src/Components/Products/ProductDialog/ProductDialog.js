@@ -15,8 +15,8 @@ const ProductDialog = (props) => {
 
     // Handles Add to Cart action
     const addToCartHandler = (productId, qty) => {
-        if(+qty >= 1 && Number.isInteger(+qty)) {
-            addToCart(productId, +qty);
+        if(qty >= 1 && Number.isInteger(qty)) {
+            addToCart(productId, qty);
             hideDialog();
             setProductQty(1);
             showSnackbar();
@@ -47,13 +47,14 @@ const ProductDialog = (props) => {
                                 onChange={(event) => setProductQty(event.target.value) }
                                 InputProps={{
                                     inputProps: {
-                                        min: 1
+                                        min: 1,
+                                        required: true
                                     }
                                 }}
                                 disabled={addedToCart}
                             />
                             <Button variant="contained" color="primary"
-                                onClick={() => addToCartHandler(product, productQty)}
+                                onClick={() => addToCartHandler(product, +productQty)}
                                 disabled={addedToCart}
                                 className={classes.ButtonTxt}
                             >
