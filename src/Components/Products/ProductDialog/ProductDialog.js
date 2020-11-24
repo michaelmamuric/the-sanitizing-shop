@@ -43,7 +43,7 @@ const ProductDialog = (props) => {
                         <DialogActions className={classes.DialogAct}> 
                             <TextField label="Quantity" type="number" size="small" value={productQty}
                                 variant="outlined"
-                                error={+productQty === 0}  
+                                error={+productQty < 1 && !Number.isInteger(+productQty)}  
                                 onChange={(event) => setProductQty(event.target.value) }
                                 InputProps={{
                                     inputProps: {

@@ -51,11 +51,11 @@ const Cart = (props) => {
     const checkoutHandler = () => {
         let invalidCount = 0;
 
-        // Check if any item quantities are less than 1
+        // Check if any item quantities are less than 1, or is not an integer
         for(let i = 0;  i < cartItems.length; i++) {
             const qty = state[i].qty;
 
-            if(qty < 1 && Number.isInteger(qty))
+            if(qty < 1 || !Number.isInteger(qty))
                 invalidCount++;
         }
 
@@ -112,7 +112,7 @@ const Cart = (props) => {
                                     <TextField className={classes.QtyField} type="number" size="small"
                                         variant="outlined"
                                         value={state[index].qty}
-                                        error={state[index].qty === 0}
+                                        error={state[index].qty < 0 || !Number.isInteger(state[index].qty)}
                                         InputProps={{
                                             inputProps: {
                                                 min: 1,

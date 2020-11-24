@@ -153,7 +153,7 @@ const Payment = (props) => {
             }
             // Directly from validator library
             case 'isNumeric': {
-                if(validator.isNumeric(newValue) && Number.isInteger(newValue)) {
+                if(validator.isNumeric(newValue) && Number.isInteger(+newValue)) {
                     isValid = true;
                 }
                 break;
@@ -196,7 +196,7 @@ const Payment = (props) => {
             <ul className={classes.List}>
                 <li>Credit Card Number: 4242424242424242</li>
                 <li>Expiry Date: Any date in the future</li>
-                <li>Security Code: Any valid number</li>
+                <li>Security Code: Any valid whole number (without decimal)</li>
             </ul>
         </Alert>
         <Grid container spacing={1}>
